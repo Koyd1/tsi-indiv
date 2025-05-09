@@ -35,7 +35,7 @@ export default function QRCode_V() {
           <QRCode
             type="canvas"
             className="!m-2 sm:!m-4 md:!m-8 ml-auto"
-            size={180}
+            size={280}
             value={'https://tsi-indiv.vercel.app'}
           />
         </Space>
