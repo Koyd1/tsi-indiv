@@ -3,9 +3,9 @@ import { Input, Button } from 'antd';
 import { Header, QRCode_V } from '@/components';
 
 import { useState } from 'react';
-import '../app/globals.css';
+import '../globals.css';
 
-export default function Home() {
+export default function Start() {
   const [companyName, setCompanyName] = useState('');
 
   const handleChange = (e) => {

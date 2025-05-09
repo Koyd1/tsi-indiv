@@ -7,7 +7,7 @@ export default function Home() {
 
   //Автоматический переход
   useEffect(() => {
-    router.push('/startPage');
+    router.push('/start');
   }, []);
 
   return (
