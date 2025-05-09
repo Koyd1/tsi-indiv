@@ -2,7 +2,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
 //Это шрифт, который используется в приложении.
-// Он загружается из Google Fonts и применяется к всему приложению.
+//Он загружается из Google Fonts и применяется к всему приложению.
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
