@@ -1,12 +1,14 @@
 'use client';
+import '@ant-design/v5-patch-for-react-19';
+import { useRouter } from 'next/navigation';
 import { Input, Button } from 'antd';
 import { Header, QRCode_V } from '@/components';
-
 import { useState } from 'react';
 import '../globals.css';
 
 export default function Start() {
   const [companyName, setCompanyName] = useState('');
+  const router = useRouter();
 
   const handleChange = (e) => {
     setCompanyName(e.target.value);
@@ -17,8 +19,8 @@ export default function Start() {
       <Header />
       <main className="row-start-2 flex flex-col items-center justify-center px-6 sm:px-12 py-12 gap-10">
         <div className="text-center">
-          <h1 className="text-3xl sm:text-4xl font-semibold select-none">
-            Введите название компании
+          <h1 className="text-2xl sm:text-3xl font-semibold select-none">
+            Введите название компании:
           </h1>
           <p className="text-md sm:text-lg text-gray-500 select-none"></p>
         </div>
@@ -36,7 +38,7 @@ export default function Start() {
             type="primary"
             className="w-full !h-12 !text-lg shadow hover:shadow-lg transition-all duration-300"
             onClick={() => {
-              console.log('Button clicked');
+              router.push('/survey');
             }}
           >
             Начать опрос
