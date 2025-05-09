@@ -13,53 +13,42 @@ export default function Start() {
   };
 
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start font-[family-name:var(--font-geist-sans)]">
-        <Header />
-        <div className="text-4xl m-auto">
-          <h1 className="select-none">Введите название компании:</h1>
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen bg-white text-neutral-800 font-[family-name:var(--font-geist-sans)]">
+      <Header />
+      <main className="row-start-2 flex flex-col items-center justify-center px-6 sm:px-12 py-12 gap-10">
+        <div className="text-center">
+          <h1 className="text-3xl sm:text-4xl font-semibold select-none">
+            Введите название компании
+          </h1>
+          <p className="text-md sm:text-lg text-gray-500 select-none"></p>
         </div>
-        <Input
-          style={{
-            width: '40vw',
-            height: '7vh',
-            fontSize: '24px',
-            margin: 'auto',
-          }}
-          placeholder="Введите название компании..."
-          value={companyName}
-          onChange={handleChange}
-        />
-        <Button
-          type="primary"
-          className="w-[30vw] !h-[8vh] !text-2xl m-auto"
-          onClick={() => {
-            console.log('Button clicked');
-          }}
-        >
-          Начать опрос
-        </Button>
+
+        <div className="w-full max-w-md flex flex-col gap-6">
+          <Input
+            size="large"
+            placeholder="Например: ООО Сигма"
+            value={companyName}
+            onChange={handleChange}
+            className="rounded-xl text-lg px-4 py-2"
+          />
+
+          <Button
+            type="primary"
+            className="w-full !h-12 !text-lg shadow hover:shadow-lg transition-all duration-300"
+            onClick={() => {
+              console.log('Button clicked');
+            }}
+          >
+            Начать опрос
+          </Button>
+        </div>
       </main>
 
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <p>Что-то придумаем</p>
+      <footer className="row-start-3 flex flex-col sm:flex-row items-center justify-center gap-4 py-6 border-t">
+        <p className="text-gray-400 text-sm sm:text-base">
+          © 2025 — Что-то придумаем
+        </p>
         <QRCode_V />
-
-        {/*<a*/}
-        {/*  className="flex items-center gap-2 hover:underline hover:underline-offset-4"*/}
-        {/*  href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"*/}
-        {/*  target="_blank"*/}
-        {/*  rel="noopener noreferrer"*/}
-        {/*>*/}
-        {/*  <Image*/}
-        {/*    aria-hidden*/}
-        {/*    src="/file.svg"*/}
-        {/*    alt="File icon"*/}
-        {/*    width={16}*/}
-        {/*    height={16}*/}
-        {/*  />*/}
-        {/*  Learn*/}
-        {/*</a>*/}
       </footer>
     </div>
   );
