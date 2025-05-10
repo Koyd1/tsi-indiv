@@ -1,380 +1,600 @@
 export const surveyData = [
   {
-    category: 'Technical cyber security',
+    category: 'Техническая кибербезопасность',
     questions: [
       {
         id: 1,
         question:
-          'Selection and use of malware detection software on all devices',
-        description: `Centrally select and install malware detection and repair programs and update them regularly for preventive or regular scanning of computers and media.
+          'Выбор и использование программного обеспечения для обнаружения вредоносных программ на всех устройствах',
+        description: `Централизованный выбор и установка программ для обнаружения и устранения вредоносных программ с их регулярным обновлением для профилактического или планового сканирования компьютеров и носителей информации.
 
-Programs should check at least the following:
+Программы должны проверять как минимум следующее:
 
-- Files received over the network or storage media are scanned for malware before use
-- Email attachments and downloaded files are scanned for malware before use
-- Websites are scanned for malware`,
+- Файлы, полученные по сети или с носителей, сканируются перед использованием
+- Вложения электронной почты и загружаемые файлы сканируются перед использованием
+- Веб-сайты сканируются на наличие вредоносных программ`,
         priority: 1,
       },
       {
         id: 2,
         question:
-          'Documentation of system logs for self-maintained data systems',
-        description: `The development of system logs must keep pace with the development of the system and enable, for example, the necessary resolution of incidents. In connection with the data system list, we describe for which systems we are responsible for the implementation of the logging. For these systems, we document:
+          'Документирование системных журналов для собственных ИТ-систем',
+        description: `Разработка журналов системы должна соответствовать её развитию и обеспечивать, например, разрешение инцидентов. В рамках списка ИТ-систем мы описываем, за какие системы несем ответственность по ведению журналов. Для этих систем мы документируем:
 
-- Which data is saved on the log
-- How long log data is retained`,
+- Какие данные сохраняются в журнале
+- Как долго хранятся данные журнала`,
         priority: 2,
       },
       {
         id: 3,
         question:
-          'Documenting and delegating ownership of own backup processes',
-        description: `In connection with the data systems listing, we describe for which systems we are responsible for the implementation of the backup. The organization’s own backup processes are documented and an owner is assigned to each. The documentation includes e.g.:
+          'Документирование и делегирование ответственности за процессы резервного копирования',
+        description: `В рамках списка ИТ-систем мы описываем, за какие системы мы несем ответственность за реализацию резервного копирования. Процессы резервного копирования организации документируются, и каждому назначается владелец. Документация включает, например:
 
-- Which system is used for backing up data?
-- How are the backups protected (encryption, physical location)?
-- How long are the backups retained?`,
+- Какая система используется для резервного копирования данных?
+- Как защищены резервные копии (шифрование, физическое размещение)?
+- Как долго хранятся резервные копии?`,
         priority: 2,
       },
       {
         id: 4,
-        question: 'Encryption of backup data',
-        description: `When the confidentiality of backups is important, backups are protected by encryption. The need to encrypt backups may become highlighted when backups are stored in a physical location where security policies are unknown.`,
+        question: 'Шифрование резервных данных',
+        description: `Когда конфиденциальность резервных копий важна, они защищаются с помощью шифрования. Необходимость шифрования может возрастать, если копии хранятся в местах с неизвестными политиками безопасности.`,
         priority: 2,
       },
       {
         id: 5,
-        question: 'Encryption of laptops',
-        description: `Laptops are protected by full-disk encryption.`,
+        question: 'Шифрование ноутбуков',
+        description: `Ноутбуки защищаются с помощью полного шифрования диска.`,
         priority: 2,
       },
       {
         id: 6,
         question:
-          'Regular testing, evaluation, and recovery instructions for backups',
-        description: `The media used for backups and the restoration of backups are tested regularly to ensure that they can be relied on in an emergency.
+          'Регулярное тестирование, оценка и инструкции по восстановлению из резервных копий',
+        description: `Носители, используемые для резервного копирования, и восстановление данных из копий регулярно тестируются для обеспечения их надежности в чрезвычайных ситуациях.
 
-Accurate and complete instructions are maintained for restoring backups. The policy is used to monitor the operation of backups and to prepare for backup failures.`,
+Поддерживаются точные и полные инструкции по восстановлению. Эта политика используется для мониторинга резервного копирования и подготовки к сбоям.`,
         priority: 2,
       },
       {
         id: 7,
-        question: 'Clock synchronization',
-        description: `Synchronizing clocks between different systems allows for good interoperability, as well as easier tracking of problem situations and perception of event flows.
+        question: 'Синхронизация времени',
+        description: `Синхронизация часов между различными системами обеспечивает совместимость и упрощает отслеживание проблемных ситуаций и потоков событий.
 
-An organization must use a reliable source to adjust and synchronize time, at least for systems that are critical to its operations. When suitable organization should use two sources.`,
+Организация должна использовать надежный источник для синхронизации времени, как минимум для критически важных систем. При возможности следует использовать два источника.`,
         priority: 3,
       },
       {
         id: 8,
         question:
-          'Compliance of used cryptographic controls in relation to applicable requirements',
-        description: `Organisation should verify that the set of cryptographic controls that apply to the use of data systems comply with relevant agreements, legislation and regulations.`,
+          'Соответствие используемых криптографических средств применимым требованиям',
+        description: `Организация должна убедиться, что используемые криптографические средства соответствуют действующим договорам, законодательству и нормативным требованиям.`,
         priority: 3,
       },
       {
         id: 9,
-        question: 'Configuration management and change log',
-        description: `Current configurations of devices, data systems and networks are documented and a log is maintained of configuration changes.
+        question: 'Управление конфигурациями и журнал изменений',
+        description: `Текущие конфигурации устройств, систем и сетей документируются, а изменения записываются в журнал.
 
-Changes to configurations must be controlled and go through the change management procedure. Only authorized personnel are allowed to make changes to the configurations.
+Изменения должны контролироваться через процедуры управления изменениями. Только уполномоченные сотрудники могут вносить изменения.
 
-Configuration information may include e.g.:
+Информация о конфигурации может включать:
 
-- Property owner and contact point information
-- Date of last configuration change
-- Configuration model version
-- Connections to other assets`,
+- Владельца и контактные данные
+- Дата последнего изменения
+- Версия конфигурационной модели
+- Связи с другими активами`,
         priority: 3,
       },
       {
         id: 10,
-        question: 'Data system log review',
-        description: `The organization must be aware of the logs that accrue from the use of different data systems, whether generating the logs is the responsibility of the organization or the system provider. Logs record user actions as well as anomalies, errors, and security incidents.
+        question: 'Проверка журналов ИТ-систем',
+        description: `Организация должна знать, какие журналы создаются в разных системах, независимо от того, кто несет ответственность — организация или поставщик. Журналы фиксируют действия пользователей, а также ошибки и инциденты безопасности.
 
-The adequacy of log should be reviewed regularly. If necessary, log should be usable to determine the root causes for system incidents.`,
+Достаточность журналов должна проверяться регулярно. При необходимости журналы должны позволять установить причины инцидентов.`,
         priority: 3,
       },
       {
         id: 11,
-        question: 'Defining standard templates for secure configurations',
-        description: `Organization must be able to monitor that devices, data systems and networks are maintained in accordance with the defined configurations (including security features) both during the implementation phase and throughout their entire life cycle.
+        question: 'Определение стандартных шаблонов безопасных конфигураций',
+        description: `Организация должна контролировать, что устройства, системы и сети поддерживаются в соответствии с определенными конфигурациями на всем жизненном цикле.
 
-For this, the organization has defined standard templates for secure configurations of devices, data systems and networks. When specifying standard templates, the following are taken into account:
+Для этого разработаны стандартные шаблоны безопасных конфигураций. При их определении учитываются:
 
-- Publicly available guidelines (e.g. templates from suppliers and independent security organizations)
-- The level of protection required for different assets
-- Fulfilling related information security requirements
-- Feasibility and applicability of the configurations to the organization's operations
+- Общедоступные рекомендации (например, от поставщиков или организаций по безопасности)
+- Требуемый уровень защиты
+- Соответствие требованиям информационной безопасности
+- Применимость конфигураций к операциям организации
 
-Standard templates should be checked regularly and updated when significant new threats or vulnerabilities need to be responded to or new software or hardware versions are released.
+Шаблоны регулярно проверяются и обновляются при появлении новых угроз или программ/оборудования.
 
-The following points should be taken into account when defining standard templates:
+Учитываются также:
 
-- The number of root-level rights is minimized
-- Unnecessary access rights are disabled
-- Unnecessary functions and services are deactivated
-- Access to powerful utilities and important settings is strictly controlled
-- The clocks are synchronized
-- The supplier's default passwords are changed immediately and the security-related settings are checked
-- Timeout functions are used if necessary (e.g. automatic logout)
-- License requirements are met`,
+- Минимизация прав администратора
+- Отключение ненужных прав
+- Отключение лишних функций и сервисов
+- Контроль доступа к важным настройкам
+- Синхронизация времени
+- Смена стандартных паролей
+- Автоматический выход из системы
+- Соблюдение лицензионных требований`,
         priority: 3,
       },
       {
         id: 12,
-        question: 'Definition and monitoring of alarm policies',
-        description: `Often, security tools provide a way to set alert policies when something potentially dangerous happens in an organization's environment. For example, Microsoft 365 has built-in alert policies to alert you to abuse of administrator privileges, malware, potential internal and external risks, and data security risks.
+        question: 'Определение и мониторинг политик оповещений',
+        description: `Средства безопасности предоставляют возможность настроить политики оповещений при подозрительной активности (например, в Microsoft 365).
 
-The organization must identify security-related events in data systems and the environments in which they operate. To respond to changes related to these events, alarm policies must be created.
+Организация должна выявлять важные события и создавать политики оповещений для реакции на них.
 
-Alarm policies need to be actively monitored and modified based on experience.`,
+Политики должны постоянно обновляться на основе полученного опыта.`,
         priority: 3,
       },
       {
         id: 13,
-        question: 'Deployment and regular analysis of security system logs',
-        description: `Security systems (e.g. firewall, malware protection) often have the ability to record a log of events. At regular intervals, make sure that a comprehensive log is accumulated and try to identify suspicious activity. The log is also useful in investigating disturbances or violations.`,
+        question:
+          'Развертывание и регулярный анализ журналов систем безопасности',
+        description: `Системы безопасности (например, брандмауэры, антивирусы) ведут журналы событий. Регулярно проверяется полнота журналов и выявляется подозрительная активность. Журналы помогают при расследовании нарушений.`,
         priority: 3,
       },
       {
         id: 14,
-        question: 'Detecting and blocking access to dangerous websites',
-        description: `The organization must identify the types of websites that staff should and should not have access to.
+        question: 'Обнаружение и блокировка доступа к опасным сайтам',
+        description: `Организация должна определить, к каким сайтам разрешён или запрещён доступ.
 
-The organization must consider blocking access to the following types of sites (either automatically or by other means):
+Следует рассмотреть блокировку:
 
-- Websites with a file upload function, unless this is permitted for a specific business need
-- Known or suspected malicious websites (e.g. distributing malware or containing phishing content)
-- Command and control servers
-- Websites distributing illegal content`,
+- Сайтов с загрузкой файлов (если не нужно по работе)
+- Известных вредоносных сайтов
+- Серверов команд и управления
+- Сайтов с нелегальным содержанием`,
         priority: 3,
       },
       {
         id: 15,
         question:
-          'Determining responsibilities for backing up important information assets',
-        description: `With adequate backups, all important data and programs can be restored after a disaster or media failure. An important first step in a functional backup strategy is to identify who is responsible for backing up each piece of data. Determining the responsibility for backup is the responsibility of the owners of the information assets (systems, hardware).
+          'Определение ответственности за резервное копирование критически важной информации',
+        description: `Наличие резервных копий обеспечивает восстановление данных после сбоев. Первый шаг — определение ответственных лиц.
 
-If the backup is the responsibility of the partner, we will find out:
+Если резервное копирование осуществляется партнёром, необходимо выяснить:
 
-- How comprehensively does the partner back up the data?
-- How the data can be recovered if necessary?
-- How the backups are agreed in the contracts?
+- Насколько полно осуществляется копирование?
+- Как можно восстановить данные?
+- Что прописано в договорах?
 
-If the backup is our own responsibility, we will find out:
+Если копирование в зоне нашей ответственности:
 
-- Whether the data backup process exists and is documented?
-- Whether the coverage and implementation cycle of the backup is at the level required by the importance of the data?`,
+- Существует ли задокументированный процесс?
+- Соответствует ли охват важности данных?`,
         priority: 3,
       },
       {
         id: 16,
         question:
-          'Determining the baseline for network and data system usage for monitoring purposes',
-        description: `Organization must describe the baseline of normal behaviour for the use of network and data systems, which is used as a starting point for identifying anomalies.
+          'Определение базового поведения использования сети и ИТ-систем',
+        description: `Организация должна описать нормальное поведение при использовании сети и систем для выявления отклонений.
 
-When defining the baseline, the following must be taken into account:
+При определении учитываются:
 
-- Monitoring the use of data systems during both normal and peak times
-- Usual times of use, places of use and frequency of use for each user and user group
+- Использование систем в обычное и пиковое время
+- Время, место и частота использования по пользователям
 
-Monitoring systems must be configured against the baseline to identify anomalous behavior such as:
+Системы мониторинга настраиваются на выявление аномалий:
 
-- Unplanned termination of systems or processes
-- Traffic related to malware or malicious IP addresses or domains
-- Known attack characteristics (e.g. denial of service or buffer overflow)
-- Unusual system use (e.g. keystroke logging)
-- Bottlenecks and overloads (e.g. network queues, latency levels)
-- Unauthorized access (actual or attempted) to systems or data
-- Unauthorized scanning of data systems and networks
-- Successful and failed attempts to access protected resources (e.g. DNS servers, web portals and file systems)
-- Unusual user and system behavior`,
+- Внезапные остановки процессов
+- Трафик, связанный с вредоносными адресами
+- Атаки (DDoS, переполнение буфера и др.)
+- Логгеры клавиатуры
+- Перегрузки
+- Несанкционированный доступ
+- Сканирование систем
+- Попытки доступа к защищённым ресурсам
+- Нетипичное поведение`,
         priority: 3,
       },
       {
         id: 17,
-        question: 'Determining the responsibility of network devices',
-        description: `Owners have been assigned to various network devices, who are responsible for ensuring that the information processed on the networks and related services are protected from unauthorized access. Where appropriate, liability for network equipment must be separated from other related responsibilities.`,
+        question: 'Определение ответственности за сетевые устройства',
+        description: `Владельцы сетевых устройств ответственны за защиту информации от несанкционированного доступа. При необходимости — разделение ответственности.`,
         priority: 3,
       },
       {
         id: 18,
-        question: 'Encryption of portable media',
-        description: `Storing confidential information on removable media should be avoided. When removable media is used to transfer confidential information, appropriate security is used (e.g., full disk encryption with pre-boot authentication).`,
+        question: 'Шифрование переносимых носителей',
+        description: `Следует избегать хранения конфиденциальной информации на съемных носителях. При необходимости использовать шифрование с аутентификацией до загрузки ОС.`,
         priority: 3,
       },
       {
         id: 19,
-        question: 'General, risk-based encryption policy',
-        description: `Deciding on the need for encryption solutions is seen as part of an overall process that includes risk assessment and the definition of other management tasks.
+        question: 'Общая политика шифрования на основе оценки рисков',
+        description: `Принятие решений о шифровании — часть общего управления рисками.
 
-The organization has established a general encryption policy that is always followed when protecting information using encryption.
+Политика шифрования определяет:
 
-Encryption policy defines:
-
-- General principles for using cryptographic controls throughout the organization
-- Methods for determining the needed level of encryption on the basis of a asset risk assessment
-- The use of encryption on mobile devices
-- Ways to protect encryption keys and recover encrypted data when keys are lost
-- Roles and responsibilities related to encryption
-- The effects of encryption on other tasks of the security management system`,
+- Общие принципы применения криптографии
+- Уровни шифрования на основе оценки рисков
+- Шифрование мобильных устройств
+- Защиту и восстановление ключей
+- Ответственные лица
+- Влияние шифрования на другие процессы`,
         priority: 3,
       },
       {
         id: 20,
-        question: 'Network areas and structurally secure network design',
-        description: `An owner is defined for an organization's networks. The owner is responsible for planning the structure of the network and documenting it.
+        question: 'Сетевые зоны и безопасное проектирование сетей',
+        description: `Назначается владелец сети, ответственный за её проектирование и документацию.
 
-Separate network areas are used in network design as needed. Domain areas can be defined by e.g.:
+Используются отдельные сетевые зоны, например:
 
-- trust level (e.g. public, workstations, server)
-- organizational units (e.g. HR, financial management)
-- or by some combination (e.g. a server domain connected to multiple organizational units)
+- по уровню доверия (публичная, рабочие станции, серверы)
+- по подразделениям (HR, финансы)
+- или комбинированно
 
-Separation can be implemented either with physically separate networks or with logically separate networks.`,
+Разделение может быть физическим или логическим.`,
         priority: 3,
       },
       {
         id: 21,
-        question:
-          'Network usage log and process for detecting inappropriate network traffic',
-        description: `An appropriate log is generated from the use of the network to enable the detection of actions relevant to cyber security.
+        question: 'Журнал использования сети и выявление аномалий',
+        description: `Ведется журнал сетевой активности для выявления событий, важных с точки зрения безопасности.
 
-The normal state of network traffic (traffic volumes, protocols, and connections) is known. In order to detect anomalies, there is a procedure for detecting events that are different from the normal state of network traffic (e.g., anomalous connections or their attempts).`,
+Известно, как выглядит нормальный трафик. Используется процедура для обнаружения отклонений (аномальных подключений и т.д.).`,
         priority: 3,
       },
       {
         id: 22,
-        question: 'Preparing for quick data recovery after faults',
-        description: `Restorability refers to how quickly personal data are restored to be available and accessible in the event of a physical or technical failure.`,
+        question: 'Подготовка к быстрому восстановлению данных после сбоев',
+        description: `Восстановимость означает, насколько быстро данные могут быть восстановлены после физического или технического сбоя.`,
         priority: 3,
       },
       {
         id: 23,
         question:
-          'Procedures and data sources for gathering reliable information about malware',
-        description: `The organization has defined policies that regularly collect up-to-date and reliable information about malware. Such can include mailing lists, magazines, blogs from security vendors, or security news sites.
+          'Процедуры и источники получения достоверной информации о вредоносных программах',
+        description: `Организация определила политики регулярного получения актуальной информации о вредоносных программах (рассылки, блоги, сайты безопасности и т.д.).
 
-These sources help verify malware information, distinguish scams from real threats, and ensure that warnings are accurate.`,
+Эти источники помогают различать угрозы и фальшивые предупреждения.`,
         priority: 3,
       },
       {
         id: 24,
-        question: 'Protecting log information',
-        description: `The logs are protected from unauthorized changes and from malfunctions such as:
+        question: 'Защита журналов',
+        description: `Журналы защищаются от несанкционированных изменений и сбоев:
 
-- Changes to the message types that can be saved
-- Editing or deleting log information
-- Exceeding log storage capacity (which may cause overwrites or missed entries)`,
+- Изменения типов сообщений
+- Редактирование или удаление записей
+- Переполнение хранилища`,
         priority: 3,
       },
       {
         id: 25,
-        question: 'Protection of wireless connections',
-        description: `The use of the wireless network is secured with sufficient keys and the traffic is encrypted. A guest wireless network is isolated from the internal network.`,
+        question: 'Защита беспроводных соединений',
+        description: `Беспроводная сеть защищается ключами, трафик шифруется. Гостевая сеть изолирована от внутренней.`,
         priority: 3,
       },
       {
         id: 26,
-        question:
-          'Regular malware inspection of data systems supporting critical business processes',
-        description: `Critical data systems are regularly inspected to identify malware. All unauthorized files or changes are formally investigated.`,
+        question: 'Регулярная проверка систем на наличие вредоносных программ',
+        description: `Критически важные системы регулярно проверяются на вредоносные программы. Все несанкционированные изменения тщательно расследуются.`,
         priority: 3,
       },
       {
         id: 27,
-        question: 'Access management for files stored in the cloud',
-        description: `By monitoring information shared via cloud services, risks of unauthorized disclosure can be managed. For example:
+        question: 'Управление доступом к файлам в облаке',
+        description: `Контроль информации в облачных сервисах помогает предотвращать утечки. Например:
 
-- Which employees share the most?
-- How often do DLP policies alert or get ignored?
-- Is important info stored beyond DLP control?`,
+- Кто чаще всего делится?
+- Как часто срабатывают политики DLP?
+- Хранится ли важная информация вне контроля DLP?`,
         priority: 4,
       },
       {
         id: 28,
-        question: 'Automatic blocking and detecting of unauthorized software',
-        description: `Policies exist to prevent or detect use of unauthorized programs.`,
+        question:
+          'Автоматическое блокирование и обнаружение несанкционированного ПО',
+        description: `Существуют политики для предотвращения или выявления использования несанкционированных программ.`,
         priority: 4,
       },
       {
         id: 29,
-        question: 'Automatic log data analyzation',
-        description: `System logs are reviewed with tools to identify events relevant to security. Consider automatic extraction of key message types or using audit tools.`,
+        question: 'Автоматический анализ журналов',
+        description: `Журналы анализируются с помощью инструментов безопасности. Рассматривается автоматическое извлечение ключевых сообщений или применение средств аудита.`,
         priority: 4,
       },
       {
         id: 30,
-        question: 'Defining a backup strategy',
-        description: `The backup strategy maps out:
+        question: 'Определение стратегии резервного копирования',
+        description: `Стратегия резервного копирования включает:
 
-- Systems we back up
-- Data asset criticality and backup frequency
-- Backup location and protection
-- Retention periods
-- Media destruction process`,
+- Системы для копирования
+- Критичность данных и частоту
+- Расположение и защиту копий
+- Сроки хранения
+- Уничтожение носителей`,
         priority: 4,
       },
       {
         id: 31,
         question:
-          'Information sharing related to network and data systems usage anomalies',
-        description: `Anomalies are reported to support:
+          'Обмен информацией об аномалиях в использовании сетей и ИТ-систем',
+        description: `Аномалии сообщаются для:
 
-- Auditing
-- Security assessment
-- Vulnerability identification and monitoring`,
+- Аудита
+- Оценки безопасности
+- Выявления уязвимостей`,
         priority: 4,
       },
       {
         id: 32,
-        question: 'Instructing and training staff regarding malware',
-        description: `Staff are regularly trained on malware protection, incident reporting, and recovery procedures.`,
+        question: 'Обучение персонала по вопросам вредоносного ПО',
+        description: `Персонал регулярно обучается защите от вредоносных программ, сообщениям об инцидентах и процедурам восстановления.`,
         priority: 4,
       },
       {
         id: 33,
-        question: 'Monitoring configurations',
-        description: `Configurations are monitored using management tools and reviewed for:
+        question: 'Мониторинг конфигураций',
+        description: `Конфигурации проверяются с помощью инструментов управления:
 
-- Password strength
-- Operation logs
-- Deviations from target configuration
+- Надежность паролей
+- Журналы
+- Отклонения от эталона
 
-Unauthorized changes are corrected and investigated.`,
+Несанкционированные изменения устраняются и расследуются.`,
         priority: 4,
       },
       {
         id: 34,
         question:
-          'Monitoring the use of the network and information systems to identify anomalies',
-        description: `Systems and networks are monitored to detect anomalies. Monitoring tools must:
+          'Мониторинг использования сетей и систем для выявления аномалий',
+        description: `Сети и системы мониторятся для выявления аномалий. Инструменты должны:
 
-- Handle large data volumes
-- Adapt to evolving threats
-- Alert in real time
+- Обрабатывать большой объем данных
+- Реагировать на новые угрозы
+- Предупреждать в реальном времени
 
-Monitoring sources can include traffic, system access, and logs.`,
+Используемые источники: трафик, доступ, журналы.`,
         priority: 4,
       },
       {
         id: 35,
-        question: 'Revision of encryption methods and assessment of adequacy',
-        description: `Encryption methods are selected based on:
+        question: 'Пересмотр методов шифрования и оценка их достаточности',
+        description: `Методы шифрования выбираются на основе:
 
-- Cost
-- Type and strength of algorithm
-- Value of assets
+- Стоимости
+- Типа и силы алгоритма
+- Ценности данных
 
-External expert advice is considered when defining practices.`,
+Привлекаются внешние эксперты при определении практик.`,
         priority: 4,
       },
       {
         id: 36,
         question:
-          'Vulnerability monitoring in used third-party or open source libraries',
-        description: `Third-party/open source libraries are scanned and monitored for vulnerabilities. Policies define how updates are identified and handled.`,
+          'Мониторинг уязвимостей в сторонних или open source библиотеках',
+        description: `Сторонние/open source библиотеки сканируются и контролируются на наличие уязвимостей. Политики определяют порядок обновлений.`,
+        priority: 4,
+      },
+    ],
+  },
+  {
+    category: 'Управление рисками и руководство',
+    questions: [
+      {
+        id: 1,
+        question: 'Создание и документирование планов непрерывности',
+        description:
+          'Иногда непредвиденные события, такие как пожар, наводнение или поломка оборудования, могут привести к простоям. Для того чтобы продолжить операции как можно быстрее и без сбоев, проводится планирование непрерывности, то есть заранее планируются действия в этих исключительных ситуациях.\n\nКаждый план непрерывности должен содержать как минимум следующую информацию:\n\n- Событие, для которого был составлен план\n- Цель по времени восстановления\n- Ответственные лица и связанные с ними заинтересованные стороны и контактная информация\n- Планируемые незамедлительные действия\n- Планируемые шаги восстановления',
+        priority: 2,
+      },
+      {
+        id: 2,
+        question: 'Создание и поддержание заявления о применимости',
+        description:
+          'Заявление о применимости (SoA) является ключевым документом, который определяет, как организация реализует многие аспекты своей кибербезопасности.\n\nЗаявление описывает, какие из контролей, рекомендованных ISO 27001, реализованы в организации, как они реализованы и текущее состояние этих контролей. Также описаны возможные причины, по которым некоторые контроли не используются.',
+        priority: 2,
+      },
+      {
+        id: 3,
+        question: 'Определение и документирование целей безопасности',
+        description:
+          'Руководство организации устанавливает цели безопасности. Цели безопасности должны соответствовать следующим требованиям:\n\n- учитывать применимые требования по защите данных и результаты оценки рисков\n- быть ясно доведены до ключевых сотрудников по безопасности и защиты данных, персонала и других заинтересованных сторон\n- обновляться по мере необходимости (например, когда изменяется ландшафт рисков или периодически, когда цели достигнуты)\n- быть документированными и (если возможно) измеримыми\n\nВ связи с документированием целей безопасности также определяются необходимые улучшения и задачи на высшем уровне, требуемые ресурсы, ответственные лица, сроки выполнения и методы оценки результатов для достижения этих целей.',
+        priority: 2,
+      },
+      {
+        id: 4,
+        question: 'Проведение и документирование внутренних аудитов',
+        description:
+          'Организация проводит внутренние аудиты в соответствии с процедурой внутреннего аудита. Цель заключается в проверке:\n\n- соответствия системы управления информационной безопасностью требованиям кибербезопасности организации\n- соответствия системы управления информационной безопасностью другим операционным требованиям безопасности или соблюдаемым стандартам\n- эффективности внедрения системы управления информационной безопасностью\n\nДокументированная информация о проведении и результатах аудитов должна сохраняться.',
+        priority: 2,
+      },
+      {
+        id: 5,
+        question: 'Идентификация и документирование рисков кибербезопасности',
+        description:
+          'Организация активно стремится к составлению списка и оценке вероятности и серьезности различных рисков кибербезопасности. Документация должна включать следующее:\n\n- Описание риска\n- Оценка воздействия и вероятности риска\n- Задачи по управлению риском или другие варианты обработки\n- Приемлемость риска',
+        priority: 2,
+      },
+      {
+        id: 6,
+        question:
+          'Идентификация, документирование и управление другими требованиями информационной безопасности',
+        description:
+          'Соблюдение обязательных законов, нормативных актов, стандартов и контрактных обязательств может быть столь же сложным, как и борьба с постоянно меняющимися угрозами и новыми формами кибератак.\n\nОрганизация должна документировать требования информационной безопасности и модель работы организации для их выполнения.\n\nВажно отметить, что значительная часть требований (например, законы, стандарты) является развивающимися сущностями. Рекомендуется определить интервал для пересмотра документации, чтобы указать, как часто изменения в требованиях должны по крайней мере проверяться.',
+        priority: 2,
+      },
+      {
+        id: 7,
+        question:
+          'Политика информационной безопасности - публикация отчетов, информирование и поддержка',
+        description:
+          'Организация разработала политику информационной безопасности, утвержденную высшим руководством. Политика должна включать как минимум следующее:\n\n- основы для установления целей безопасности организации\n- обязательства по выполнению требований информационной безопасности\n- обязательства по постоянному совершенствованию системы управления информационной безопасностью\n\nКроме того, ответственный за задачу должен обеспечить, чтобы:\n\n- она соответствовала бизнес-идее организации\n- политика была доведена до всего персонала\n- политика была доступна заинтересованным сторонам по мере необходимости',
+        priority: 2,
+      },
+      {
+        id: 8,
+        question:
+          'Процедура внутреннего аудита - публикация отчетов и поддержка',
+        description:
+          'Организация установила процедуру проведения внутренних аудитов. Процедура должна описывать как минимум:\n\n- как часто проводятся аудиты\n- кто может проводить аудиты (включая критерии аудита)\n- как проводится сам аудит\n- как документируются результаты аудита и кому они сообщаются\n- результаты должны быть сообщены компетентному органу, если это регулируется законом',
+        priority: 2,
+      },
+      {
+        id: 9,
+        question: 'Описание и поддержка ISMS',
+        description:
+          'Организация должна эксплуатировать, поддерживать и непрерывно развивать систему управления безопасностью.\n\nГраницы и сфера действия, содержание, роль, информация о накопленной реализации и другая необходимая информация, относящаяся к системе управления, должны быть четко задокументированы.',
+        priority: 2,
+      },
+      {
+        id: 10,
+        question:
+          'Процедура управления рисками - публикация отчетов и поддержка',
+        description:
+          'Организация определила процедуры для оценки и обработки рисков кибербезопасности. Определение включает как минимум:\n\n- Методы идентификации рисков\n- Методы анализа рисков\n- Критерии для оценки рисков (воздействие и вероятность)\n- Приоритизация рисков, варианты обработки и определение контрольных задач\n- Критерии принятия рисков\n- Цикл реализации процесса, ресурсы и ответственность\n\nРезультаты должны быть включены в процесс управления рисками организации.\n\nОтветственный за задачу регулярно проверяет, чтобы процедура была ясной и давала стабильные результаты.',
+        priority: 2,
+      },
+      {
+        id: 11,
+        question:
+          'Количество, компетенции и достаточность ключевого персонала по кибербезопасности',
+        description:
+          'Организация должна иметь достаточное количество обученного, контролируемого и, при необходимости, правильно аттестованного персонала, который играет ключевую роль в информационной безопасности и выполняет управленческие задачи, связанные с системой управления информационной безопасностью.\n\nОрганизация определила:\n\n- какие квалификации должен иметь этот персонал\n- как квалификация приобретается и обеспечивается (например, через соответствующее обучение и мониторинг обучения)\n- как квалификация может быть продемонстрирована с помощью документации\n\nОтветственный за задачу регулярно проверяет количество и уровень компетенции сотрудников по безопасности.',
+        priority: 3,
+      },
+      {
+        id: 12,
+        question:
+          'План коммуникации для системы управления информационной безопасностью',
+        description:
+          'Организация должна определить, какие вопросы, связанные с системой управления информационной безопасностью, необходимо регулярно коммуницировать. План должен включать ответы, например, на следующие вопросы:\n\n- Какие вопросы сообщаются? Например, новые или измененные цели безопасности.\n- Как и когда коммуницировать? Какие каналы используются и как часто?\n- Кому сообщается? Как часто для руководителей по безопасности, как часто для всей организации или партнеров?\n- Кто принимает участие? Кто имеет право отправлять сообщения и от кого, например, сообщения должны быть утверждены.\n\nОтветственный за задачу будет следить за реализацией плана и регулярной оценкой его эффективности.',
+        priority: 3,
+      },
+      {
+        id: 13,
+        question: 'Непрерывное улучшение и документация',
+        description:
+          'Организация должна постоянно стремиться к улучшению работы системы управления информационной безопасностью. Активно ищутся способы улучшения — не только через аудит или явные несоответствия.\n\nОтветственный за задачу отвечает за документирование улучшений, внесенных в систему управления, и распределение их на задачи, которые необходимо выполнить, мониторинг выполнения задач и оценку достигнутых результатов.',
+        priority: 3,
+      },
+      {
+        id: 14,
+        question: 'Определение и документирование метрик кибербезопасности',
+        description:
+          'Организация регулярно оценивает уровень кибербезопасности и эффективность системы управления информационной безопасностью.\n\nОрганизация определяет:\n\n- контролируемые метрики, которые позволяют предоставлять сопоставимые результаты по развитию уровня кибербезопасности\n- ответственных за измерения\n- методы, график и ответственных лиц для пересмотра и оценки метрик\n- методы документирования оценок и результатов, связанных с метриками\n\nЭффективные метрики должны быть использованы для выявления слабых мест, лучшего распределения ресурсов и оценки успеха / неудачи организации в области кибербезопасности.',
+        priority: 3,
+      },
+      {
+        id: 15,
+        question: 'Определение ролей и ответственности в области безопасности',
+        description:
+          'Руководство должно обеспечить четкое распределение ответственности и полномочий по следующим вопросам:\n\n- кто в первую очередь ответственен за обеспечение соответствия системы управления информационной безопасностью требованиям информационной безопасности\n- кто является владельцем тем по ISMS, ответственным за основные темы системы управления информационной безопасностью\n- кто имеет ответственность и полномочия докладывать руководству о результатах работы системы управления информационной безопасностью\n- кто уполномочен проводить внутренние аудиты\n\nВладельцы тем по ISMS представлены на рабочем столе системы управления и в отчете по политике информационной безопасности.\n\nКроме того, руководство должно обеспечить, чтобы все роли, имеющие отношение к информационной безопасности, а также соответствующие ответственности и полномочия, были определены и сообщены. Также важно учитывать роли и ответственность внешних партнеров и поставщиков.',
+        priority: 3,
+      },
+      {
+        id: 16,
+        question:
+          'Обеспечение и тестирование устойчивости среды обработки данных',
+        description:
+          'Организация должна определить требуемый уровень доступности для предлагаемых ею услуг, а также для всех связанных с ними систем обработки данных и других сред обработки данных. Организация должна спланировать свои системы и операции так, чтобы уровень доступности был обеспечен.\n\nПри планировании устойчивой среды обработки данных организация должна учитывать следующие факторы:\n\n- использование устойчивых сетей\n- использование двух географически разделенных дата-центров с зеркальными базами данных\n- использование нескольких параллельных программных компонентов с автоматическим распределением нагрузки\n- использование дублированных ключевых компонентов в системах (например, процессор, жесткие диски, память) или сетях (например, файрволы, маршрутизаторы, коммутаторы)\n\nНапример, для важных производственных систем устойчивость должна также регулярно тестироваться, чтобы обеспечить плавный переход к резервным решениям в случае инцидентов.',
+        priority: 3,
+      },
+      {
+        id: 17,
+        question:
+          'Процесс оценки и документация значительных изменений, связанных с безопасностью',
+        description:
+          'В систематической работе по кибербезопасности влияние значительных изменений должно быть оценено заранее, и они должны выполняться контролируемым образом. Последствия непреднамеренных изменений должны быть оценены, и предприняты усилия для смягчения возможных неблагоприятных эффектов.\n\nЗначительные изменения могут включать: изменения в организации, операционной среде, бизнес-процессах и системах данных. Изменения могут быть выявлены, например, в ходе обзоров руководства и другой работы по кибербезопасности.',
+        priority: 3,
+      },
+      {
+        id: 18,
+        question:
+          'Общие компетенции в области безопасности и осведомленность персонала',
+        description:
+          'Персонал, работающий под руководством всей организации, должен быть осведомлен:\n\n- как он может способствовать эффективности системы управления информационной безопасностью и какие выгоды можно получить от повышения уровня информационной безопасности\n- о последствиях несоответствия требованиям системы управления информационной безопасностью и какие роли в персонале влияют на уровень безопасности\n\nКроме того, руководство определило способы, с помощью которых персонал осведомляется о руководящих принципах безопасности, относящихся к их собственной рабочей роли.',
+        priority: 3,
+      },
+      {
+        id: 19,
+        question:
+          'Идентификация и тестирование требований к обеспечению непрерывности ICT-услуг',
+        description:
+          'Требования к непрерывности ICT-услуг вытекают из планов непрерывности, создаваемых для ключевых процессов (например, связанных с предоставлением продуктов и услуг организации) и включенных в них целей времени восстановления.\n\nОрганизация должна определить, какие сроки восстановления и точки восстановления различные ICT-услуги должны обеспечивать, с учетом определенных целей восстановления для связанных процессов, и гарантировать возможность их достижения.\n\nПланирование должно учитывать, в частности:\n\n- определены ли ответственности за подготовку, управление и реагирование на сбои в ICT-услугах\n- в частности, созданы ли планы непрерывности, связанные с ICT-услугами, утверждены и регулярно тестируются\n- содержат ли планы непрерывности информацию о требованиях к производительности, времени восстановления и действиях по восстановлению для каждой важной ICT-услуги, а также требования к точке восстановления и действия по восстановлению для каждой важной ICT-услуги',
+        priority: 3,
+      },
+      {
+        id: 20,
+        question: 'Внедрение и документация управленческих обзоров',
+        description:
+          'Руководство должно проводить обзор системы управления информационной безопасностью организации через определенные промежутки времени, чтобы убедиться, что она остается соответствующей, актуальной и эффективной.\n\nОбзор руководства должен охватывать и комментировать как минимум следующее:\n\n- статус улучшений (или других действий), инициированных в результате предыдущих обзоров руководства\n- будущие изменения, имеющие отношение к системе управления безопасностью\n- результаты работы ISMS (проблемные области, измерения, результаты аудита и выполнение целей безопасности руководства)\n- отзывы заинтересованных сторон о безопасности данных\n- функционирование процесса оценки рисков и их обработки\n\nДокументированная информация о проведении и результатах обзоров должна храниться.',
+        priority: 3,
+      },
+      {
+        id: 21,
+        question: 'Ресурсы и мониторинг управления инцидентами',
+        description:
+          'Руководство должно определить ответственности и установить процедуры для обеспечения эффективного и последовательного реагирования на инциденты безопасности.\n\nРуководство должно гарантировать, например:\n\n- управление вмешательствами имеет четкие обязанности\n- существует документированный процесс для реагирования, обработки и сообщения об инцидентах\n- Процесс должен гарантировать, например:\n  - сотрудники имеют четкую точку контакта / инструмент и инструкции для сообщения об инцидентах\n  - сообщенные нарушения безопасности будут обработаны квалифицированным персоналом в достаточной мере',
+        priority: 3,
+      },
+      {
+        id: 22,
+        question: 'Поддержание выбранных тематических политик',
+        description:
+          'Тематические политические документы могут помочь в коммуникации и просмотре задач, инструкций и другой документации, связанной с различными областями, а также соединять возможные принципы более высокого уровня с содержанием этой системы управления, которые описывают более детализированное выполнение.\n\nОрганизация должна определить, какие тематические документы политик должны поддерживаться и, если необходимо, пересматриваться в целом в требуемые интервалы. Примеры тем, для которых можно поддерживать свои собственные документы политики, включают:\n\n- управление доступом\n- физическая безопасность\n- управление активами, подлежащими защите\n- резервное копирование\n- практики шифрования\n- классификация данных\n- управление техническими уязвимостями\n- безопасная разработка',
+        priority: 3,
+      },
+      {
+        id: 23,
+        question:
+          'Приверженность руководства к управлению кибербезопасностью и системе управления',
+        description:
+          'Высшее руководство организации должно продемонстрировать приверженность работе по кибербезопасности и системе управления. Руководство обязуется:\n\n- определить рамки или другие требования, которые служат основой для работы (например, обещания клиентов, нормативные акты или сертификаты)\n- определить ресурсы, необходимые для управления безопасностью\n- донести важность кибербезопасности\n- обеспечить достижение желаемых результатов\n- способствовать постоянному улучшению кибербезопасности\n\nВысшее руководство также решает, какой объем информации будет охвачен системой управления информационной безопасностью, и фиксирует это решение в описании системы. Это означает, например, что некоторые части деятельности организации или информации могут быть исключены из объема системы управления или же она будет охватывать всю информацию / деятельность организации.',
+        priority: 3,
+      },
+      {
+        id: 24,
+        question:
+          'Процесс включения аспектов информационной безопасности в управление проектами',
+        description:
+          'Организация определила, как аспекты информационной безопасности интегрируются в используемые методы управления проектами. Методы, которые используются, должны требовать:\n\n- Риски, связанные с информационной безопасностью проекта, должны быть выявлены, оценены и обработаны на ранней стадии проекта\n- Риски, связанные с информационной безопасностью проекта, должны быть пересмотрены при необходимости\n- Ответственность за информационную безопасность проекта должна быть четко закреплена за определенными ролями в проекте',
+        priority: 3,
+      },
+      {
+        id: 25,
+        question:
+          'Регулярный внутренний мониторинг внедрения системы управления информационной безопасностью',
+        description:
+          'Система управления информационной безопасностью (СУИБ) должна отслеживать выполнение задач и инструкций, зафиксированных в ней.\n\nОтветственный за задачу должен регулярно проверять состояние выполнения СУИБ в целом.',
+        priority: 3,
+      },
+      {
+        id: 26,
+        question:
+          'Сегрегация обязанностей, связанных с информационной безопасностью',
+        description:
+          'Организация должна иметь процессы, обеспечивающие сегрегацию конфликтующих обязанностей, чтобы снизить возможности для злоупотребления активами организации.\n\nСледует уделить внимание, например, тому, чтобы одно лицо не могло обрабатывать данные без обнаружения. Часто также разделение инициации события и его авторизации является хорошей практикой.\n\nКогда непосредственная сегрегация обязанностей трудно достижима, могут быть использованы следующие принципы:\n- Высокий уровень сегрегации обязанностей по информационной безопасности\n- Поддержка сегрегации с помощью хорошего мониторинга, аудита и управления',
+        priority: 3,
+      },
+      {
+        id: 27,
+        question: 'Процесс обработки и документации выявленных несоответствий',
+        description:
+          'С точки зрения системы управления информационной безопасностью, несоответствия - это ситуации, когда:\n- требования безопасности организации не соответствуют системе управления\n- процедуры, задачи или инструкции, определенные в системе управления, не соблюдаются в повседневной деятельности организации\n\nВ рамках системной работы по безопасности все выявленные несоответствия должны быть задокументированы. Для устранения несоответствия организация должна выявить и внедрить улучшения, которые исправляют его.',
+        priority: 3,
+      },
+      {
+        id: 28,
+        question: 'Регулярные внешние аудиты практик безопасности',
+        description:
+          'Организация регулярно проводит аудит информационной безопасности. Аудит используется для выявления, например, проблем и потребностей в развитии в области информационных систем и деятельности поставщиков системы.\n\nВажно, чтобы ключевые аудиторы были перечислены в списке других заинтересованных сторон.',
+        priority: 4,
+      },
+      {
+        id: 29,
+        question: 'Требования к продолжению информационной безопасности',
+        description:
+          'Организация должна определить требования для продолжения управления информационной безопасностью в условиях кризиса или катастрофы.\n\nУправление информационной безопасностью может либо предположить, что требования остаются такими же в неблагоприятных ситуациях, как и в обычных условиях эксплуатации, либо отдельно определить требования безопасности, применимые в неблагоприятных ситуациях.',
         priority: 4,
       },
     ],
