@@ -2,7 +2,7 @@
 import '@ant-design/v5-patch-for-react-19';
 import { useRouter } from 'next/navigation';
 import { Input, Button } from 'antd';
-import { Header, QRCode_V } from '@/components';
+import { Header, Footer } from '@/components';
 import { useState } from 'react';
 import '../globals.css';
 
@@ -46,12 +46,7 @@ export default function Start() {
         </div>
       </main>
 
-      <footer className="row-start-3 flex flex-col sm:flex-row items-center justify-center gap-4 py-6 border-t">
-        <p className="text-gray-400 text-sm sm:text-base">
-          © 2025 — Что-то придумаем
-        </p>
-        <QRCode_V />
-      </footer>
+      <Footer />
     </div>
   );
 }
