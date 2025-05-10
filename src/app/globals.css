@@ -34,26 +34,12 @@ body {
     padding: 10px;
   }
 
-  .container {
-    width: 100%;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .header {
-    font-size: 18px;
-  }
-
   /* Пример адаптивных изменений для текста */
   .text-lg {
     font-size: 1.25rem;
   }
 
   /* Пример адаптации кнопок */
-  .btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
 }
 
 @media (min-width: 769px) {

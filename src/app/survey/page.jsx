@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Footer, Header, QRCode_V } from '@/components';
 import { SurveyHeader, QuestionCard, NavigationButtons } from '@/components';
-import { QRCode } from 'antd';
 
 const EvaluationOptions = [
   'Не выполнено',
