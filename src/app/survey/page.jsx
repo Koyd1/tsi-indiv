@@ -3,81 +3,166 @@
 import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Radio, Progress, Typography } from 'antd';
+import { Button, Select, Radio, Progress, Collapse, Card } from 'antd';
+import '../globals.css';
+import { Header } from '@/components'; // Если используете локальные данные для начальной загрузки
 
-const { Title } = Typography;
+const { Option } = Select;
 
-export default function SurveyForm() {
-  const [questions, setQuestions] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
+const EvaluationOptions = [
+  'Not done',
+  'Partly done',
+  'Mostly done',
+  'Fully done',
+];
+
+export default function Survey() {
+  const [categoryIndex, setCategoryIndex] = useState(0);
   const [answers, setAnswers] = useState({});
+  const [data, setData] = useState([]);
   const router = useRouter();
-  const total = questions.length;
-  const progress = total > 0 ? Math.round((currentIndex / total) * 100) : 0;
 
-  const current = questions[currentIndex];
+  const currentCategory = data[categoryIndex] || {};
+  const totalCategories = data.length;
+  const currentAnswers = answers[currentCategory.category] || {};
+
+  const isLast = categoryIndex === totalCategories - 1;
+  const progress = Math.round((categoryIndex / totalCategories) * 100);
 
   useEffect(() => {
-    const savedAnswers = JSON.parse(localStorage.getItem('answers')) || {};
-    const savedIndex = parseInt(localStorage.getItem('currentIndex')) || 0;
+    const fetchSurveyData = async () => {
+      const res = await fetch('/api/survey'); // Получаем данные через API
+      const survey = await res.json();
+      setData(survey); // Сохраняем данные в состоянии
 
-    setAnswers(savedAnswers);
-    setCurrentIndex(savedIndex);
-
-    const fetchQuestions = async () => {
-      const response = await fetch('/api/survey');
-      const data = await response.json();
-      setQuestions(data);
+      // Инициализация состояния с ответом "no" по умолчанию
+      const initialAnswers = survey.reduce((acc, category) => {
+        acc[category.category] = category.questions.reduce((qAcc, q) => {
+          qAcc[q.id] = { answer: 'no', evaluation: '' }; // Устанавливаем "no" как ответ по умолчанию
+          return qAcc;
+        }, {});
+        return acc;
+      }, {});
+      setAnswers(initialAnswers);
     };
-
-    fetchQuestions();
+    fetchSurveyData();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('answers', JSON.stringify(answers));
-    localStorage.setItem('currentIndex', currentIndex.toString());
-
-    // Редирект на /results, когда опрос завершён
-    if (questions.length > 0 && currentIndex >= questions.length) {
-      router.push('/results');
-    }
-  }, [answers, currentIndex, questions.length, router]);
-
   const handleAnswer = (questionId, value) => {
-    const updatedAnswers = { ...answers, [questionId]: value };
-    setAnswers(updatedAnswers);
-    setTimeout(() => {
-      setCurrentIndex((prev) => prev + 1);
-    }, 300);
+    const updatedCategoryAnswers = {
+      ...currentAnswers,
+      [questionId]: { ...currentAnswers[questionId], answer: value },
+    };
+    setAnswers((prev) => ({
+      ...prev,
+      [currentCategory.category]: updatedCategoryAnswers,
+    }));
   };
 
-  if (!current) return null;
+  const handleEvaluation = (questionId, value) => {
+    const updatedCategoryAnswers = {
+      ...currentAnswers,
+      [questionId]: { ...currentAnswers[questionId], evaluation: value },
+    };
+    setAnswers((prev) => ({
+      ...prev,
+      [currentCategory.category]: updatedCategoryAnswers,
+    }));
+  };
+
+  // Функция для проверки, завершена ли текущая категория
+  const isCategoryComplete = () => {
+    const questions = currentCategory.questions || [];
+    return questions.every((q) => {
+      const answer = currentAnswers[q.id]?.answer;
+      if (!answer) return false;
+      if (answer === 'yes') {
+        return !!currentAnswers[q.id]?.evaluation;
+      }
+      return true;
+    });
+  };
+
+  const nextCategory = () => {
+    if (categoryIndex < totalCategories - 1) {
+      setCategoryIndex((prev) => prev + 1);
+    } else {
+      router.push('/results');
+    }
+  };
+
+  const prevCategory = () => {
+    if (categoryIndex > 0) {
+      setCategoryIndex((prev) => prev - 1);
+    }
+  };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
-      <p className="text-sm text-gray-500 mb-1">
-        Категория: {current.category}
-      </p>
-      <p className="text-lg font-medium mb-6">{current.question}</p>
+    <div className="max-w-4xl mx-auto p-6">
+      <Header />
+      <h2 className="text-2xl mb-4 mt-25">
+        Категория: {currentCategory.category}
+      </h2>
 
-      <Progress percent={progress} showInfo className="mb-6" />
-      <Title level={4} className="!mb-2">
-        Вопрос {currentIndex + 1} из {total}
-      </Title>
-      <p className="text-sm text-gray-500 mb-1">
-        Категория: {current.category}
-      </p>
-      <p className="text-lg font-medium mb-6">{current.question}</p>
+      <Progress percent={progress} className="mb-4" />
 
-      <Radio.Group
-        onChange={(e) => handleAnswer(current.id, e.target.value)}
-        value={answers[current.id]}
-        size="large"
-        buttonStyle="solid"
-      >
-        <Radio.Button value="yes">Да</Radio.Button>
-        <Radio.Button value="no">Нет</Radio.Button>
-      </Radio.Group>
+      {currentCategory.questions?.map((q) => (
+        <Card key={q.id} className="mb-4" title={q.question} variant="outlined">
+          <Collapse
+            defaultActiveKey={[]}
+            className="mt-2"
+            items={[
+              {
+                key: q.id,
+                label: 'Description',
+                children: (
+                  <p className="mb-4 text-gray-600 whitespace-pre-line">
+                    {q.description}
+                  </p>
+                ),
+              },
+            ]}
+          />
+
+          <div className="m-4 !mt-8 flex items-center justify-start flex-wrap gap-1">
+            <Radio.Group
+              value={currentAnswers[q.id]?.answer}
+              onChange={(e) => handleAnswer(q.id, e.target.value)}
+            >
+              <Radio.Button value="yes">Yes</Radio.Button>
+              <Radio.Button value="no">No</Radio.Button>
+            </Radio.Group>
+
+            {currentAnswers[q.id]?.answer === 'yes' && (
+              <Select
+                placeholder="Select implementation level"
+                className="min-w-[200px] !ml-5"
+                value={currentAnswers[q.id]?.evaluation}
+                onChange={(val) => handleEvaluation(q.id, val)}
+              >
+                {EvaluationOptions.map((level) => (
+                  <Option key={level} value={level}>
+                    {level}
+                  </Option>
+                ))}
+              </Select>
+            )}
+          </div>
+        </Card>
+      ))}
+
+      <div className="flex justify-between mt-6">
+        <Button onClick={prevCategory} disabled={categoryIndex === 0}>
+          Previous
+        </Button>
+        <Button
+          type="primary"
+          onClick={nextCategory}
+          disabled={!isCategoryComplete()}
+        >
+          {categoryIndex === totalCategories - 1 ? 'Finish' : 'Next Category'}
+        </Button>
+      </div>
     </div>
   );
 }

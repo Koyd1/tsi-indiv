@@ -13,7 +13,8 @@
     "@ant-design/v5-patch-for-react-19": "^1.0.3",
     "next": "15.3.2",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.6.0"
   },
   "devDependencies": {
     "@headlessui/react": "^2.2.2",
