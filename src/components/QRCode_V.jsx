@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FloatButton, Modal, QRCode, Space } from 'antd';
+import { FloatButton, Modal, QRCode } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons';
 
 export default function QRCode_V() {
@@ -24,21 +24,20 @@ export default function QRCode_V() {
       />
 
       <Modal
-        className="!p-4 sm:!p-8 md:!p-20 !w-full sm:!w-[90%] md:!w-[60%] lg:!w-[40%] !h-auto sm:!h-auto md:!h-auto"
+        className="!p-4 sm:!p-8 md:!p-12 !w-full sm:!w-[90%] md:!w-[60%] lg:!w-[40%] !h-auto"
         open={isModalOpen}
         title="Поделись тестом с друзьями!"
         onCancel={handleCancel}
-        footer={[]}
+        footer={null}
+        centered
       >
-        <Space direction="vertical" align="center">
-          {/* Сдвигаем QR-код вправо с помощью ml-auto */}
+        <div className="flex justify-center items-center">
           <QRCode
             type="canvas"
-            className="!m-2 sm:!m-4 md:!m-8 ml-auto"
-            size={280}
-            value={'https://tsi-indiv.vercel.app'}
+            size={240}
+            value="https://tsi-indiv.vercel.app"
           />
-        </Space>
+        </div>
       </Modal>
     </div>
   );
