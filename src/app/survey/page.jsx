@@ -1,8 +1,9 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Header } from '@/components';
+import { Footer, Header, QRCode_V } from '@/components';
 import { SurveyHeader, QuestionCard, NavigationButtons } from '@/components';
+import { QRCode } from 'antd';
 
 const EvaluationOptions = [
   'Не выполнено',
@@ -108,6 +109,8 @@ export default function SurveyPage() {
         onPrev={prevCategory}
         disabledNext={!isCategoryComplete()}
       />
+      <QRCode_V />
+      <Footer />
     </div>
   );
 }

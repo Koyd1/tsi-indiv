@@ -1,6 +1,63 @@
 import { Card, Collapse, Radio, Select } from 'antd';
+import Image from 'next/image';
+import '@ant-design/v5-patch-for-react-19';
 
 const { Option } = Select;
+
+const getPriorityIcon = (priority) => {
+  switch (priority) {
+    case '4':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          Приоритет: Низкий
+          <Image
+            src="/arrow-low.svg"
+            alt="Low priority"
+            width={20}
+            height={20}
+          />
+        </div>
+      );
+    case '3':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          Приоритет: Нормальный
+          <Image
+            src="/green-tick.svg"
+            alt="Medium priority"
+            width={20}
+            height={20}
+          />
+        </div>
+      );
+    case '2':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          Приоритет: Высокий
+          <Image
+            src="/orange-alert.svg"
+            alt="High priority"
+            width={20}
+            height={20}
+          />
+        </div>
+      );
+    case '1':
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          Приоритет: Критический
+          <Image
+            src="/alert-red.svg"
+            alt="Critical priority"
+            width={20}
+            height={20}
+          />
+        </div>
+      );
+    default:
+      return null;
+  }
+};
 
 export default function QuestionCard({
   question,
@@ -11,11 +68,16 @@ export default function QuestionCard({
 }) {
   return (
     <Card
-      className="!mb-5 !break-words !text-base !font-medium"
+      className="!mb-5 !break-words !text-base !font-medium !border-gray-300"
       title={
-        <div className="whitespace-normal break-words p-3">
-          {question.question}
-          <div className="pt-4">Приоритет: {question.priority}</div>
+        <div>
+          <div className="whitespace-normal break-words pt-5">
+            {question.question}
+          </div>
+
+          <div className="pt-4 pb-2 text-sm">
+            {getPriorityIcon(String(question.priority))}
+          </div>
         </div>
       }
       variant="outlined"
@@ -41,15 +103,15 @@ export default function QuestionCard({
           value={answer?.answer}
           onChange={(e) => onAnswerChange(question.id, e.target.value)}
         >
-          <Radio.Button value="yes">Да</Radio.Button>
+          <Radio.Button value="yes">Есть</Radio.Button>
           <Radio.Button value="no">Нет</Radio.Button>
         </Radio.Group>
 
         {answer?.answer === 'yes' && (
           <Select
             placeholder="Выберите уровень выполнения"
-            className="min-w-[200px] !ml-5 sm:min-w-[150px] sm:!ml-3"
-            value={answer?.evaluation}
+            className="!min-w-[210px] !ml-5 sm:min-w-[150px] sm:!ml-3"
+            value={answer?.evaluation || undefined}
             onChange={(val) => onEvaluationChange(question.id, val)}
           >
             {evaluationOptions.map((level) => (

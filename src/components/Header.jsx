@@ -1,6 +1,6 @@
 export default function Header() {
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-white font-semibold text-center p-4 sm:p-5 shadow-md select-none">
+    <div className="fixed top-0 left-0 right-0 z-50 bg-[rgba(255,255,255,0.995)] font-semibold text-center p-4 sm:p-5 shadow-md select-none">
       <h1 className="text-2xl sm:text-4xl md:text-5xl">
         Welcome v etu poebotu
       </h1>
