@@ -603,7 +603,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 58,
+        id: 59,
         IdQIN: 23,
         question:
           'Приверженность руководства к управлению кибербезопасностью и системе управления',
@@ -612,7 +612,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 59,
+        id: 60,
         IdQIN: 24,
         question:
           'Процесс включения аспектов информационной безопасности в управление проектами',
@@ -621,7 +621,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 60,
+        id: 61,
         IdQIN: 25,
         question:
           'Регулярный внутренний мониторинг внедрения системы управления информационной безопасностью',
@@ -630,7 +630,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 61,
+        id: 62,
         IdQIN: 26,
         question:
           'Сегрегация обязанностей, связанных с информационной безопасностью',
@@ -639,7 +639,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 62,
+        id: 63,
         IdQIN: 27,
         question: 'Процесс обработки и документации выявленных несоответствий',
         description:
@@ -647,7 +647,7 @@ export const surveyData = [
         priority: 3,
       },
       {
-        id: 63,
+        id: 64,
         IdQIN: 28,
         question: 'Регулярные внешние аудиты практик безопасности',
         description:
@@ -655,7 +655,7 @@ export const surveyData = [
         priority: 4,
       },
       {
-        id: 64,
+        id: 65,
         IdQIN: 29,
         question: 'Требования к продолжению информационной безопасности',
         description:
