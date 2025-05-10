@@ -1,7 +1,9 @@
 'use client';
 
+import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
-import { Radio, Typography } from 'antd';
+import { useRouter } from 'next/navigation';
+import { Radio, Progress, Typography } from 'antd';
 
 const { Title } = Typography;
 
@@ -9,50 +11,69 @@ export default function SurveyForm() {
   const [questions, setQuestions] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState({});
+  const router = useRouter();
+  const total = questions.length;
+  const progress = total > 0 ? Math.round((currentIndex / total) * 100) : 0;
+
+  const current = questions[currentIndex];
 
   useEffect(() => {
-    const loadQuestions = async () => {
+    const savedAnswers = JSON.parse(localStorage.getItem('answers')) || {};
+    const savedIndex = parseInt(localStorage.getItem('currentIndex')) || 0;
+
+    setAnswers(savedAnswers);
+    setCurrentIndex(savedIndex);
+
+    const fetchQuestions = async () => {
       const response = await fetch('/api/survey');
       const data = await response.json();
       setQuestions(data);
     };
 
-    loadQuestions();
+    fetchQuestions();
   }, []);
 
-  const handleAnswer = (questionId, value) => {
-    setAnswers((prev) => ({ ...prev, [questionId]: value }));
+  useEffect(() => {
+    localStorage.setItem('answers', JSON.stringify(answers));
+    localStorage.setItem('currentIndex', currentIndex.toString());
 
-    // Переход к следующему вопросу после небольшой паузы (для UX)
+    // Редирект на /results, когда опрос завершён
+    if (questions.length > 0 && currentIndex >= questions.length) {
+      router.push('/results');
+    }
+  }, [answers, currentIndex, questions.length, router]);
+
+  const handleAnswer = (questionId, value) => {
+    const updatedAnswers = { ...answers, [questionId]: value };
+    setAnswers(updatedAnswers);
     setTimeout(() => {
       setCurrentIndex((prev) => prev + 1);
     }, 300);
   };
 
-  if (currentIndex >= questions.length) {
-    return (
-      <div>
-        <Title level={2}>Спасибо за прохождение опроса!</Title>
-        <pre>{JSON.stringify(answers, null, 2)}</pre>
-      </div>
-    );
-  }
-
-  const currentQuestion = questions[currentIndex];
+  if (!current) return null;
 
   return (
-    <div>
-      <Title level={3}>
-        Вопрос {currentIndex + 1} из {questions.length}
-      </Title>
-
-      <p style={{ fontSize: '18px', marginBottom: '16px' }}>
-        {currentQuestion.question}
+    <div className="max-w-xl mx-auto p-6">
+      <p className="text-sm text-gray-500 mb-1">
+        Категория: {current.category}
       </p>
+      <p className="text-lg font-medium mb-6">{current.question}</p>
+
+      <Progress percent={progress} showInfo className="mb-6" />
+      <Title level={4} className="!mb-2">
+        Вопрос {currentIndex + 1} из {total}
+      </Title>
+      <p className="text-sm text-gray-500 mb-1">
+        Категория: {current.category}
+      </p>
+      <p className="text-lg font-medium mb-6">{current.question}</p>
 
       <Radio.Group
-        onChange={(e) => handleAnswer(currentQuestion.id, e.target.value)}
-        value={answers[currentQuestion.id]}
+        onChange={(e) => handleAnswer(current.id, e.target.value)}
+        value={answers[current.id]}
+        size="large"
+        buttonStyle="solid"
       >
         <Radio.Button value="yes">Да</Radio.Button>
         <Radio.Button value="no">Нет</Radio.Button>
