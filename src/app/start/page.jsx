@@ -33,11 +33,11 @@ export default function Start() {
             onChange={handleChange}
             className="rounded-xl text-lg px-4 py-2"
           />
-
           <Button
             type="primary"
             className="w-full !h-12 !text-lg shadow hover:shadow-lg transition-all duration-300"
             onClick={() => {
+              localStorage.setItem('companyName', companyName); // сохраняем
               router.push('/survey');
             }}
           >

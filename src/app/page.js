@@ -1,13 +1,17 @@
 'use client';
+
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
   const router = useRouter();
 
-  //Автоматический переход
   useEffect(() => {
-    router.push('/start');
+    const timer = setTimeout(() => {
+      router.push('/start');
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -17,7 +21,11 @@ export default function Home() {
           Oh Noooo La politia
         </h1>
 
-        <p>ARINA ALEXEI DURA...</p>
+        <div className="space-y-2 animate-pulse" aria-hidden="true">
+          <div className="w-48 h-4 bg-gray-200 rounded" />
+          <div className="w-128 h-6 bg-gray-200 rounded" />
+          <div className="w-48 h-4 bg-gray-200 rounded" />
+        </div>
       </main>
     </div>
   );

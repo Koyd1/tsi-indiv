@@ -41,6 +41,38 @@ export default function SurveyPage() {
     fetchSurveyData();
   }, []);
 
+  useEffect(() => {
+    const fetchSurveyData = async () => {
+      const res = await fetch('/api/survey');
+      const survey = await res.json();
+      setData(survey);
+
+      // Пытаемся загрузить сохранённые ответы
+      const savedAnswers = JSON.parse(localStorage.getItem('answers'));
+
+      if (savedAnswers) {
+        setAnswers(savedAnswers);
+      } else {
+        const initialAnswers = survey.reduce((acc, category) => {
+          acc[category.category] = category.questions.reduce((qAcc, q) => {
+            qAcc[q.id] = { answer: 'no', evaluation: '' };
+            return qAcc;
+          }, {});
+          return acc;
+        }, {});
+        setAnswers(initialAnswers);
+      }
+    };
+
+    fetchSurveyData();
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(answers).length > 0) {
+      localStorage.setItem('answers', JSON.stringify(answers));
+    }
+  }, [answers]);
+
   const handleAnswer = (questionId, value) => {
     const updated = {
       ...currentAnswers,
