@@ -8,3 +8,5 @@ export { default as CategoryBarChart } from './CategoryBarChart';
 export { default as EvaluationStackedChart } from './EvaluationStackedChart';
 export { default as ResultsTable } from './ResultsTable';
 export { default as YesNoPieChart } from './YesNoPieChart';
+export { default as YesEvaluationPieChart } from './YesEvaluationPieChart';
+export { default as SaveReportAsPDF } from './SaveReportAsPDF';

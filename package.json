@@ -27,6 +27,6 @@
     "@tailwindcss/postcss": "^4",
     "antd": "^5.25.1",
     "prettier": "3.5.3",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4.1.6"
   }
 }

@@ -8,7 +8,9 @@ export default function ResultsTable({ data }) {
     { title: 'Да', dataIndex: 'yes' },
     { title: 'Нет', dataIndex: 'no' },
     { title: 'Полностью', dataIndex: 'Полностью выполнено' },
+    { title: 'Почти', dataIndex: 'Почти выполнено' },
     { title: 'Частично', dataIndex: 'Частично выполнено' },
+    { title: 'Не выполнено', dataIndex: 'Не выполнено' },
     {
       title: 'Прогресс',
       render: (_, row) => (

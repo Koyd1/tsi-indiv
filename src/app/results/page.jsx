@@ -3,12 +3,14 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
-import SaveReportAsPDF from '@/components/SaveReportAsPDF';
 import {
+  SaveReportAsPDF,
   CategoryBarChart,
   EvaluationStackedChart,
+  Header,
   ResultsTable,
   YesNoPieChart,
+  YesEvaluationPieChart,
 } from '@/components';
 
 const EvaluationOptions = [
@@ -23,16 +25,19 @@ export default function VisualReport() {
   const [answers, setAnswers] = useState({});
   const [companyName, setCompanyName] = useState('');
 
-  useEffect(() => {
-    const savedAnswers = JSON.parse(localStorage.getItem('answers'));
-    const savedCompanyName = localStorage.getItem('companyName');
-    setAnswers(savedAnswers || {});
-    setCompanyName(savedCompanyName || '');
-  }, []);
-
   const allCategories = Object.keys(answers);
   let totalYes = 0;
   let totalNo = 0;
+
+  const yesEvaluations = [];
+  allCategories.forEach((cat) => {
+    const questions = Object.values(answers[cat] || {});
+    questions.forEach(({ answer, evaluation }) => {
+      if (answer === 'yes' && evaluation) {
+        yesEvaluations.push({ evaluation });
+      }
+    });
+  });
 
   const perCategoryStats = allCategories.map((cat) => {
     const questions = Object.values(answers[cat] || {});
@@ -83,15 +88,35 @@ export default function VisualReport() {
     }, {}),
   }));
 
+  useEffect(() => {
+    const savedAnswers = JSON.parse(localStorage.getItem('answers'));
+    const savedCompanyName = localStorage.getItem('companyName');
+    setAnswers(savedAnswers || {});
+    setCompanyName(savedCompanyName || '');
+  }, []);
+
   return (
     <div id="report" className="max-w-6xl mx-auto p-6">
-      <Title level={2}>Отчёт</Title>
+      {/*<div>*/}
+      {/*  <Header />*/}
+      {/*</div>*/}
+      <div className="flex items-center justify-between mb-4 pt-40">
+        <Title level={1}>Отчёт по результатам опроса</Title>
+        <div className="text-lg font-semibold text-gray-700">
+          {new Date().toLocaleDateString('ru-RU', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          })}
+        </div>
+      </div>
       <p className="mb-4 text-lg">
         Компания: <strong>{companyName}</strong>
       </p>
 
       <div className="gap-8">
         <YesNoPieChart data={pieData} />
+        <YesEvaluationPieChart responses={yesEvaluations} />
         <CategoryBarChart data={barData} />
         <EvaluationStackedChart data={stackedData} />
       </div>
