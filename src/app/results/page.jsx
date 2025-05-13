@@ -96,7 +96,20 @@ export default function VisualReport() {
   }, []);
 
   return (
-    <div id="report" className="max-w-6xl mx-auto p-6">
+    <div
+      id="report"
+      className="max-w-6xl mx-auto p-6"
+      style={{
+        '--background': '#ffffff',
+        '--foreground': '#000000',
+        '--card': '#ffffff',
+        '--card-foreground': '#000000',
+        '--muted': '#f0f0f0',
+        '--muted-foreground': '#333333',
+        '--border': '#cccccc',
+        '--input': '#dddddd',
+      }}
+    >
       {/*<div>*/}
       {/*  <Header />*/}
       {/*</div>*/}
