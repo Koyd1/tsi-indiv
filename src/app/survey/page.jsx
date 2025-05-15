@@ -11,84 +11,78 @@ const EvaluationOptions = [
   'Полностью выполнено',
 ];
 
-export default function SurveyPage(req, res) {
+export default function SurveyPage() {
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [data, setData] = useState([]);
   const router = useRouter();
+  const [selectedQuestionId, setSelectedQuestionId] = useState(null);
 
   const currentCategory = data[categoryIndex] || {};
   const totalCategories = data.length;
   const currentAnswers = answers[currentCategory.category] || {};
 
   const isLast = categoryIndex === totalCategories - 1;
-  const progress = Math.round((categoryIndex / totalCategories) * 100);
+  const progress =
+    totalCategories === 0
+      ? 0
+      : Math.round((categoryIndex / totalCategories) * 100);
 
+  // Загрузка данных и ответов из localStorage
   useEffect(() => {
     const fetchSurveyData = async () => {
-      const res = await fetch('/api/survey');
-      const survey = await res.json();
-      setData(survey);
-      const initialAnswers = survey.reduce((acc, category) => {
-        acc[category.category] = category.questions.reduce((qAcc, q) => {
-          qAcc[q.id] = { answer: 'no', evaluation: '' };
-          return qAcc;
-        }, {});
-        return acc;
-      }, {});
-      setAnswers(initialAnswers);
+      try {
+        const res = await fetch('/api/survey');
+        const survey = await res.json();
+        setData(survey);
+
+        if (typeof window !== 'undefined') {
+          const savedAnswers = JSON.parse(localStorage.getItem('answers'));
+          if (savedAnswers) {
+            setAnswers(savedAnswers);
+          } else {
+            // Инициализация пустых ответов
+            const initialAnswers = survey.reduce((acc, category) => {
+              acc[category.category] = category.questions.reduce((qAcc, q) => {
+                qAcc[q.id] = { answer: 'no', evaluation: '' };
+                return qAcc;
+              }, {});
+              return acc;
+            }, {});
+            setAnswers(initialAnswers);
+          }
+        }
+      } catch (e) {
+        console.error('Failed to fetch survey data:', e);
+      }
     };
     fetchSurveyData();
   }, []);
 
-  // Загрузка ответов из localStorage
+  // Сохраняем ответы в localStorage при их изменении
+  useEffect(() => {
+    if (typeof window !== 'undefined' && Object.keys(answers).length > 0) {
+      localStorage.setItem('answers', JSON.stringify(answers));
+    }
+  }, [answers]);
+
+  // Горячие клавиши для оценки выбранного вопроса
   useEffect(() => {
     const handleKeyDown = (e) => {
       const key = e.key.toLowerCase();
-
-      // Обработка оценки 1–4
       if (['1', '2', '3', '4'].includes(key)) {
+        if (!selectedQuestionId) return;
         const selectedIndex = parseInt(key, 10) - 1;
         const selectedValue = EvaluationOptions[selectedIndex];
-
-        const updated = { ...currentAnswers };
-        let changed = false;
-
-        for (const [questionId, response] of Object.entries(currentAnswers)) {
-          if (response.answer === 'yes') {
-            updated[questionId] = {
-              ...response,
+        const currentResponse = currentAnswers[selectedQuestionId];
+        if (currentResponse?.answer === 'yes') {
+          const updated = {
+            ...currentAnswers,
+            [selectedQuestionId]: {
+              ...currentResponse,
               evaluation: selectedValue,
-            };
-            changed = true;
-          }
-        }
-
-        if (changed) {
-          setAnswers((prev) => ({
-            ...prev,
-            [currentCategory.category]: updated,
-          }));
-        }
-      }
-
-      // Обработка Q (no) и E (yes)
-      if (key === 'e' || key === 'q') {
-        const answerValue = key === 'e' ? 'no' : 'yes';
-
-        const updated = { ...currentAnswers };
-        let changed = false;
-
-        for (const [questionId, response] of Object.entries(currentAnswers)) {
-          updated[questionId] = {
-            ...response,
-            answer: answerValue,
-            evaluation: answerValue === 'no' ? '' : response.evaluation, // очищаем оценку при выборе 'no'
+            },
           };
-          changed = true;
-        }
-
-        if (changed) {
           setAnswers((prev) => ({
             ...prev,
             [currentCategory.category]: updated,
@@ -99,44 +93,17 @@ export default function SurveyPage(req, res) {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentAnswers, currentCategory.category]);
+  }, [currentAnswers, currentCategory.category, selectedQuestionId]);
 
-  useEffect(() => {
-    const fetchSurveyData = async () => {
-      const res = await fetch('/api/survey');
-      const survey = await res.json();
-      setData(survey);
-
-      //Загрузка ответов из localStorage
-      const savedAnswers = JSON.parse(localStorage.getItem('answers'));
-
-      if (savedAnswers) {
-        setAnswers(savedAnswers);
-      } else {
-        const initialAnswers = survey.reduce((acc, category) => {
-          acc[category.category] = category.questions.reduce((qAcc, q) => {
-            qAcc[q.id] = { answer: 'no', evaluation: '' };
-            return qAcc;
-          }, {});
-          return acc;
-        }, {});
-        setAnswers(initialAnswers);
-      }
-    };
-
-    fetchSurveyData();
-  }, []);
-
-  useEffect(() => {
-    if (Object.keys(answers).length > 0) {
-      localStorage.setItem('answers', JSON.stringify(answers));
-    }
-  }, [answers]);
-
+  // Обработка ответа на вопрос
   const handleAnswer = (questionId, value) => {
     const updated = {
       ...currentAnswers,
-      [questionId]: { ...currentAnswers[questionId], answer: value },
+      [questionId]: {
+        ...currentAnswers[questionId],
+        answer: value,
+        evaluation: value === 'no' ? '' : currentAnswers[questionId].evaluation,
+      },
     };
     setAnswers((prev) => ({
       ...prev,
@@ -144,6 +111,7 @@ export default function SurveyPage(req, res) {
     }));
   };
 
+  // Обработка оценки (evaluation)
   const handleEvaluation = (questionId, value) => {
     const updated = {
       ...currentAnswers,
@@ -155,6 +123,7 @@ export default function SurveyPage(req, res) {
     }));
   };
 
+  // Проверка, что категория заполнена корректно
   const isCategoryComplete = () => {
     const questions = currentCategory.questions || [];
     return questions.every((q) => {
@@ -190,6 +159,8 @@ export default function SurveyPage(req, res) {
           onAnswerChange={handleAnswer}
           onEvaluationChange={handleEvaluation}
           evaluationOptions={EvaluationOptions}
+          onSelect={() => setSelectedQuestionId(q.id)}
+          isSelected={selectedQuestionId === q.id}
         />
       ))}
 

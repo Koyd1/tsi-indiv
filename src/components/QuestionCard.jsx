@@ -65,10 +65,15 @@ export default function QuestionCard({
   onAnswerChange,
   onEvaluationChange,
   evaluationOptions,
+  onSelect,
+  isSelected,
 }) {
   return (
     <Card
-      className="!mb-5 !break-words !text-base !font-medium !border-gray-300"
+      onClick={onSelect}
+      className={`!mb-5 !break-words !text-base !font-medium !border-gray-300 ${
+        isSelected ? 'border-blue-500' : ''
+      }`}
       title={
         <div>
           <div className="whitespace-normal break-words pt-5">
@@ -102,6 +107,7 @@ export default function QuestionCard({
         <Radio.Group
           value={answer?.answer}
           onChange={(e) => onAnswerChange(question.id, e.target.value)}
+          onClick={(e) => e.stopPropagation()} // чтобы клик по радио не выбирал карточку
         >
           <Radio.Button value="yes">Есть</Radio.Button>
           <Radio.Button value="no">Нет</Radio.Button>
@@ -113,6 +119,7 @@ export default function QuestionCard({
             className="!min-w-[210px] !ml-5 sm:min-w-[150px] sm:!ml-3"
             value={answer?.evaluation || undefined}
             onChange={(val) => onEvaluationChange(question.id, val)}
+            onClick={(e) => e.stopPropagation()} // чтобы клик по селекту не выбирал карточку
           >
             {evaluationOptions.map((level) => (
               <Option key={level} value={level}>
