@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { Input, Button } from 'antd';
 import { Header, Footer } from '@/components';
 import { useState } from 'react';
-import '../globals.css';
+import '../../app/globals.css';
 
 export default function Start() {
   const [companyName, setCompanyName] = useState('');

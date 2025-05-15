@@ -1,13 +1,13 @@
 // noinspection NonAsciiCharacters
 
 'use client';
+import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
 import {
   SaveReportAsPDF,
   CategoryBarChart,
   EvaluationStackedChart,
-  Header,
   ResultsTable,
   YesNoPieChart,
   YesEvaluationPieChart,
