@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Footer, Header, QRCode_V } from '@/components';
 import { SurveyHeader, QuestionCard, NavigationButtons } from '@/components';
-// import { checkAccess } from '../api/middleware'; // Подключаем миддлвар для проверки доступа
 
 const EvaluationOptions = [
   'Не выполнено',
@@ -13,10 +12,6 @@ const EvaluationOptions = [
 ];
 
 export default function SurveyPage(req, res) {
-  // checkAccess(req, res, () => {
-  //   // Логика для страницы опроса
-  //   return res.json({ message: 'Access granted to survey' });
-  // });
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [data, setData] = useState([]);
@@ -45,6 +40,66 @@ export default function SurveyPage(req, res) {
     };
     fetchSurveyData();
   }, []);
+
+  // Загрузка ответов из localStorage
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      const key = e.key.toLowerCase();
+
+      // Обработка оценки 1–4
+      if (['1', '2', '3', '4'].includes(key)) {
+        const selectedIndex = parseInt(key, 10) - 1;
+        const selectedValue = EvaluationOptions[selectedIndex];
+
+        const updated = { ...currentAnswers };
+        let changed = false;
+
+        for (const [questionId, response] of Object.entries(currentAnswers)) {
+          if (response.answer === 'yes') {
+            updated[questionId] = {
+              ...response,
+              evaluation: selectedValue,
+            };
+            changed = true;
+          }
+        }
+
+        if (changed) {
+          setAnswers((prev) => ({
+            ...prev,
+            [currentCategory.category]: updated,
+          }));
+        }
+      }
+
+      // Обработка Q (no) и E (yes)
+      if (key === 'e' || key === 'q') {
+        const answerValue = key === 'e' ? 'no' : 'yes';
+
+        const updated = { ...currentAnswers };
+        let changed = false;
+
+        for (const [questionId, response] of Object.entries(currentAnswers)) {
+          updated[questionId] = {
+            ...response,
+            answer: answerValue,
+            evaluation: answerValue === 'no' ? '' : response.evaluation, // очищаем оценку при выборе 'no'
+          };
+          changed = true;
+        }
+
+        if (changed) {
+          setAnswers((prev) => ({
+            ...prev,
+            [currentCategory.category]: updated,
+          }));
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [currentAnswers, currentCategory.category]);
 
   useEffect(() => {
     const fetchSurveyData = async () => {

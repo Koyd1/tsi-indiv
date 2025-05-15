@@ -10,3 +10,4 @@ export { default as ResultsTable } from './ResultsTable';
 export { default as YesNoPieChart } from './YesNoPieChart';
 export { default as YesEvaluationPieChart } from './YesEvaluationPieChart';
 export { default as SaveReportAsPDF } from './SaveReportAsPDF';
+export { default as CompanyInputForm } from './CompanyInputForm';
