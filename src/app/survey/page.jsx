@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Footer, Header, QRCode_V } from '@/components';
 import { SurveyHeader, QuestionCard, NavigationButtons } from '@/components';
+// import { checkAccess } from '../api/middleware'; // Подключаем миддлвар для проверки доступа
 
 const EvaluationOptions = [
   'Не выполнено',
@@ -11,7 +12,11 @@ const EvaluationOptions = [
   'Полностью выполнено',
 ];
 
-export default function SurveyPage() {
+export default function SurveyPage(req, res) {
+  // checkAccess(req, res, () => {
+  //   // Логика для страницы опроса
+  //   return res.json({ message: 'Access granted to survey' });
+  // });
   const [categoryIndex, setCategoryIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [data, setData] = useState([]);
@@ -47,7 +52,7 @@ export default function SurveyPage() {
       const survey = await res.json();
       setData(survey);
 
-      // Пытаемся загрузить сохранённые ответы
+      //Загрузка ответов из localStorage
       const savedAnswers = JSON.parse(localStorage.getItem('answers'));
 
       if (savedAnswers) {
@@ -109,7 +114,7 @@ export default function SurveyPage() {
       setCategoryIndex((prev) => prev + 1);
       window.scrollTo(0, 0);
     } else {
-      router.push('/results');
+      router.push('/end-stat');
     }
   };
 
