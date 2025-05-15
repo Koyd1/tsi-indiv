@@ -1,16 +1,40 @@
 'use client';
 
-import '@ant-design/v5-patch-for-react-19';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, Statistic } from 'antd';
 
-export default function FinalPage({
-  companyName,
-  totalQuestions,
-  yesCount,
-  noCount,
-}) {
+export default function FinalPage() {
   const router = useRouter();
+
+  const [companyName, setCompanyName] = useState('');
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [yesCount, setYesCount] = useState(0);
+  const [noCount, setNoCount] = useState(0);
+
+  useEffect(() => {
+    // пример: загрузка из localStorage
+    const savedAnswers = JSON.parse(localStorage.getItem('answers')) || {};
+    const savedCompany = localStorage.getItem('companyName') || 'Компания';
+
+    let total = 0,
+      yes = 0,
+      no = 0;
+
+    // Подсчёт ответов "да"/"нет"
+    Object.values(savedAnswers).forEach((category) => {
+      Object.values(category).forEach(({ answer }) => {
+        total++;
+        if (answer === 'yes') yes++;
+        else if (answer === 'no') no++;
+      });
+    });
+
+    setCompanyName(savedCompany);
+    setTotalQuestions(total);
+    setYesCount(yes);
+    setNoCount(no);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center gap-12 p-8">

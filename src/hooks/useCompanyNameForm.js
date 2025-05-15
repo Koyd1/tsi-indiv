@@ -18,6 +18,7 @@ export function useCompanyNameForm() {
 
     setLoading(true);
     localStorage.setItem('companyName', trimmed);
+    localStorage.removeItem('answers');
 
     setTimeout(() => {
       router.push('/survey');

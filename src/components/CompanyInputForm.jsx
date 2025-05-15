@@ -1,6 +1,6 @@
 'use client';
 import { Input, Button } from 'antd';
-import { useCompanyNameForm } from '@/hooks/useCompanyNameForm';
+import { useCompanyNameForm } from '@/hooks';
 
 export default function CompanyInputForm() {
   const { inputRef, companyName, loading, handleChange, handleSubmit } =
