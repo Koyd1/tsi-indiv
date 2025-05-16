@@ -1,12 +1,13 @@
 'use client';
-
+import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, Statistic } from 'antd';
 
 export default function FinalPage() {
   const router = useRouter();
-
+  //TODO: Лоудер
+  const [loading] = useState(false);
   const [companyName, setCompanyName] = useState('');
   const [totalQuestions, setTotalQuestions] = useState(0);
   const [yesCount, setYesCount] = useState(0);
@@ -74,6 +75,7 @@ export default function FinalPage() {
         </Button>
         <Button
           type="default"
+          loading={loading}
           size="large"
           onClick={() => {
             const reportUrl = `/api/report/download?company=${encodeURIComponent(companyName)}`;

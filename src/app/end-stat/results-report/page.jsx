@@ -110,9 +110,6 @@ export default function VisualReport() {
         '--input': '#dddddd',
       }}
     >
-      {/*<div>*/}
-      {/*  <Header />*/}
-      {/*</div>*/}
       <div className="flex items-center justify-between mb-4 pt-40">
         <Title level={1}>Отчёт по результатам опроса</Title>
         <div className="text-lg font-semibold text-gray-700">
@@ -127,9 +124,12 @@ export default function VisualReport() {
         Компания: <strong>{companyName}</strong>
       </p>
 
-      <div className="gap-8">
+      <div className="flex flex-wrap justify-center gap-8 mb-8">
         <YesNoPieChart data={pieData} />
         <YesEvaluationPieChart responses={yesEvaluations} />
+      </div>
+
+      <div className="gap-8">
         <CategoryBarChart data={barData} />
         <EvaluationStackedChart data={stackedData} />
       </div>
