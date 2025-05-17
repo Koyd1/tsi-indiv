@@ -23,10 +23,10 @@ export default function Team() {
   ];
 
   return (
-    <section className="py-16 px-4 sm:px-8 bg-gray-50">
+    <section className="mt-5 py-16 px-4 sm:px-8">
       <div className="max-w-6xl mx-auto text-center">
         <h2 className="text-3xl sm:text-4xl font-semibold mb-10 text-gray-800">
-          Команда по спасению кибербезопасности
+          Команда по внедрению ISMS
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
           {team.map((member) => (

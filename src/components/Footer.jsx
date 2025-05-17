@@ -12,7 +12,7 @@ export default function Footer() {
           <p>Телефон: Xiaomi</p>
           <p
             onClick={() => router.push('/about')}
-            className="underline hover:text-gray-600"
+            className="underline hover:text-gray-600 cursor-pointer"
           >
             О проекте
           </p>
