@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 import { FloatButton, Modal, QRCode } from 'antd';
 import { QrcodeOutlined } from '@ant-design/icons';

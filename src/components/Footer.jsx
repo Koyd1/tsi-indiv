@@ -1,3 +1,4 @@
+'use client';
 import { QRCode_V } from '@/components/index';
 import { useRouter } from 'next/navigation';
 

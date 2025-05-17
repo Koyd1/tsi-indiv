@@ -61,7 +61,7 @@ export default function EndStat() {
         <Button
           type="default"
           size="large"
-          onClick={() => router.push('/review')}
+          onClick={() => router.push('/end-stat/review')}
         >
           Полный обзор ответов
         </Button>
@@ -74,11 +74,9 @@ export default function EndStat() {
         </Button>
         <Button
           type="default"
-          loading={loading}
           size="large"
           onClick={() => {
-            const reportUrl = `/api/report/download?company=${encodeURIComponent(companyName)}`;
-            window.open(reportUrl, '_blank');
+            router.push('/end-stat/report');
           }}
         >
           Скачать отчёт
