@@ -8,6 +8,7 @@ import {
   ResultsTable,
   YesNoPieChart,
   YesEvaluationPieChart,
+  Header,
 } from '@/components';
 
 const EvaluationOptions = [
@@ -107,6 +108,7 @@ export default function ResultReport() {
         '--input': '#dddddd',
       }}
     >
+      <Header />
       <div className="flex items-center justify-between mb-4 pt-40">
         <Title level={1}>Отчёт по результатам опроса</Title>
         <div className="text-lg font-semibold text-gray-700">

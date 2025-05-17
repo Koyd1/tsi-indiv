@@ -9,7 +9,7 @@ import {
 } from 'recharts';
 import { Typography } from 'antd';
 
-const COLORS = ['#00C49F', '#FF8042', '#0088FE', '#FFBB28'];
+const COLORS = ['#f3b20d', '#f6d426', '#abd925', '#77cb3d'];
 const EvaluationOptions = [
   'Не выполнено',
   'Частично выполнено',
