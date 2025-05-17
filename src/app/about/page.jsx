@@ -1,7 +1,8 @@
 'use client';
+
 import { Info } from '@/components/pages';
 
-export default function About() {
+export default function AboutPage() {
   return (
     <>
       <Info />

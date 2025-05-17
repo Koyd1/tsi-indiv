@@ -70,5 +70,11 @@ body {
   flex-wrap: nowrap !important;
   max-width: 100%; /* чтобы не выходил за пределы родителя */
 }
+/* Отключить горизонтальный скроллбар у табов Ant Design */
+.ant-tabs-nav-list {
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+
+}
 
 
