@@ -53,4 +53,22 @@ body {
   }
 }
 
+/* Ограничиваем область прокрутки */
+.ant-tabs-nav {
+  overflow-x: auto !important;  /* скролл только внутри навигации */
+  max-width: 100%; /* не больше родителя */
+}
+
+/* Убираем overflow:hidden и nowrap для вкладок */
+.ant-tabs-nav-wrap {
+  overflow: visible !important;
+  display: inline-block; /* чтобы не растягивался на всю ширину */
+}
+
+.ant-tabs-nav-list {
+  white-space: nowrap;
+  flex-wrap: nowrap !important;
+  max-width: 100%; /* чтобы не выходил за пределы родителя */
+}
+
 

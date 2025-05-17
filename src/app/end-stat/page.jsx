@@ -2,9 +2,9 @@
 
 'use client';
 
-import EndStat from '@/components/pages/EndStat';
+import { EndStat } from '@/components/pages';
 
-export default function EndStatPAge() {
+export default function EndStatPage() {
   return (
     <>
       <EndStat />
