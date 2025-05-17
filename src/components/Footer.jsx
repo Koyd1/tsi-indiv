@@ -1,17 +1,22 @@
 import { QRCode_V } from '@/components/index';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function Footer() {
+  const router = useRouter();
   return (
-    <footer className="row-start-3 flex flex-col sm:flex-row sm:justify-between items-center gap-6 py-6 border-t !mt-30 max-w-7xl mx-auto px-4 sm:px-8">
-      <div className="flex flex-col items-center sm:items-start space-y-1 text-gray-400 text-sm sm:text-base">
-        <p>© 2025 — FalcoNS All rights reserved.</p>
-        <p>Адрес: г. Кишинёв, ул. Студенческая, 9/7, блок 3</p>
-        <Link href="/about" className="underline hover:text-gray-600">
-          О проекте
-        </Link>
-      </div>
-      <div>
+    <footer className="mt-5 row-start-3 w-full border-t bg-white py-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 flex flex-col sm:flex-row sm:justify-between items-center">
+        <div className="w-full flex flex-col items-center space-y-1 text-gray-400 text-sm sm:text-base text-center">
+          <p>© 2025 — FalcoNS All rights reserved.</p>
+          <p>Адрес: г. Кишинёв, ул. Студенческая, 9/7</p>
+          <p>Телефон: Xiaomi</p>
+          <p
+            onClick={() => router.push('/about')}
+            className="underline hover:text-gray-600 cursor-pointer"
+          >
+            О проекте
+          </p>
+        </div>
         <QRCode_V />
       </div>
     </footer>
