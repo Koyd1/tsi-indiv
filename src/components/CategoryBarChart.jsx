@@ -26,13 +26,12 @@ export default function CategoryBarChart({ data }) {
             type="category"
             dataKey="name"
             interval={0}
-            // tick={{ fontSize: 16, width: 180, wordBreak: 'break-word' }}
             tick={{ fontSize: 14, width: 200, wordBreak: 'break-word' }}
           />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Да" fill="#00C49F" />
-          <Bar dataKey="Нет" fill="#FF8042" />
+          <Bar dataKey="Да" fill="#00B771" />
+          <Bar dataKey="Нет" fill="#F37356" />
         </BarChart>
       </ResponsiveContainer>
     </div>

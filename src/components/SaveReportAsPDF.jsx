@@ -1,135 +1,123 @@
-// const SaveReportAsPDF = () => {
-//   const downloadPDF = async () => {
-//     const report = document.getElementById('report');
-//     if (!report) return;
-//
-//     // Используем html2canvas для захвата содержимого
-//     const canvas = await html2canvas(report, {
-//       scale: 4, // Увеличиваем масштаб для лучшего качества
-//       // scrollX: 0,
-//       // scrollY: -window.scrollY, // Учитываем прокрутку страницы
-//       useCORS: true, // Разрешаем кросс-оригинальные запросы для изображений
-//     });
-//
-//     const imgData = canvas.toDataURL('image/png'); // Преобразуем canvas в изображение
-//
-//     // Создаем PDF документ
-//     const pdf = new jsPDF({
-//       orientation: 'portrait',
-//       unit: 'px',
-//       format: [canvas.width + 400, canvas.height + 500], // Размер страницы PDF по размеру canvas
-//     });
-//
-//     // Добавляем изображение на первую страницу PDF
-//     pdf.addImage(imgData, 'png', 0, 0, canvas.width, canvas.height);
-//
-//     // Сохраняем PDF
-//     pdf.save('report.pdf');
-//   };
-//
-//   return (
-//     <button
-//       onClick={downloadPDF}
-//       className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-//     >
-//       Скачать PDF
-//     </button>
-//   );
-// };
-//
-// export default SaveReportAsPDF;
+'use client';
 
-import { jsPDF } from 'jspdf';
+import { useState } from 'react';
+import { Button, message } from 'antd';
+import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import React from 'react';
-// Функция для замены цветов в формате oklch
-const replaceOklchColors = () => {
-  const styles = document.querySelectorAll('*');
-  styles.forEach((element) => {
-    const style = window.getComputedStyle(element);
-    const backgroundColor = style.backgroundColor;
-    const color = style.color;
 
-    if (backgroundColor.includes('oklch')) {
-      element.style.backgroundColor = 'rgb(255, 255, 255)'; // Заменить на белый
+function replaceUnsupportedColors(element) {
+  const problematicStyles = [];
+
+  function traverse(node) {
+    if (node.nodeType !== 1) return;
+    const computedStyle = window.getComputedStyle(node);
+    const inlineStyle = node.style;
+
+    for (let i = 0; i < computedStyle.length; i++) {
+      const prop = computedStyle[i];
+      const val = computedStyle.getPropertyValue(prop);
+
+      if (val.includes('oklab(') || val.includes('oklch(')) {
+        problematicStyles.push({
+          element: node,
+          property: prop,
+          originalValue: inlineStyle.getPropertyValue(prop) || '',
+        });
+        inlineStyle.setProperty(prop, '#ffffff', 'important');
+      }
     }
 
-    if (color && color.includes('oklch')) {
-      element.style.color = 'rgb(0, 0, 0)'; // Заменить на черный
+    for (const child of node.children) {
+      traverse(child);
+    }
+  }
+
+  traverse(element);
+  return problematicStyles;
+}
+
+function restoreStyles(problematicStyles) {
+  problematicStyles.forEach(({ element, property, originalValue }) => {
+    if (originalValue) {
+      element.style.setProperty(property, originalValue);
+    } else {
+      element.style.removeProperty(property);
     }
   });
-};
-const SaveReportAsPDF = () => {
-  const downloadPDF = async () => {
-    const report = document.getElementById('report');
-    if (!report) return;
+}
 
-    // Заменяем oklch на rgb или другой формат
-    replaceOklchColors();
+export function SaveReportAsPDF() {
+  const [loading, setLoading] = useState(false);
 
-    // Используем html2canvas для захвата содержимого
-    const canvas = await html2canvas(report, {
-      scale: 4, // Увеличиваем масштаб для лучшего качества
-      useCORS: true, // Разрешаем кросс-оригинальные запросы для изображений
-      backgroundColor: '#ffffff', // Белый фон
-    });
+  const handleDownload = async () => {
+    setLoading(true);
 
-    const imgData = canvas.toDataURL('image/png'); // Преобразуем canvas в изображение
+    try {
+      const input = document.getElementById('report');
+      const downloadBtn = document.getElementById('download-btn');
 
-    // Создаем новый PDF документ
-    const pdf = new jsPDF({
-      orientation: 'portrait',
-      unit: 'px',
-      format: [canvas.width + 400, canvas.height + 500], // Размер страницы PDF по размеру canvas
-    });
+      if (!input) {
+        message.error('Блок #report не найден');
+        setLoading(false);
+        return;
+      }
 
-    const pageHeight = pdf.internal.pageSize.height; // Высота страницы PDF
-    const pageWidth = pdf.internal.pageSize.width; // Ширина страницы PDF
+      // Скрыть только визуально
+      if (downloadBtn) downloadBtn.classList.add('exclude-from-pdf');
 
-    const canvasHeight = canvas.height;
-    const canvasWidth = canvas.width;
+      const replacedStyles = replaceUnsupportedColors(input);
 
-    const imageAspectRatio = canvasWidth / canvasHeight; // Расчет пропорции изображения
-    const imageHeight = pageHeight; // Высота изображения на странице
+      const canvas = await html2canvas(input, {
+        scale: 2,
+        useCORS: true,
+        scrollY: -window.scrollY,
+        windowWidth: document.documentElement.scrollWidth,
+        windowHeight: document.documentElement.scrollHeight,
+      });
 
-    const imageWidth = imageHeight * imageAspectRatio; // Ширина изображения с сохранением пропорций
+      restoreStyles(replacedStyles);
 
-    // Вычисляем смещение для центрирования изображения по горизонтали
-    const xOffset = (pageWidth - imageWidth) / 2; // Смещение по оси X
+      // Вернуть обратно
+      if (downloadBtn) downloadBtn.classList.remove('exclude-from-pdf');
 
-    let yOffset = 0; // Начальная позиция для изображения на странице
+      const imgData = canvas.toDataURL('image/png');
 
-    // Добавляем первое изображение на первую страницу
-    pdf.addImage(imgData, 'png', xOffset, yOffset, imageWidth, imageHeight);
+      const imgWidth = canvas.width;
+      const imgHeight = canvas.height;
 
-    // // Теперь будем добавлять страницы, если изображение больше одной страницы
-    // while (yOffset + pageHeight < canvasHeight) {
-    //   yOffset += pageHeight; // Перемещаемся вниз на одну страницу
-    //   pdf.addPage(); // Добавляем новую страницу
+      const pdfWidth = 595.28;
+      const scale = pdfWidth / imgWidth;
+      const pdfHeight = imgHeight * scale;
 
-    //   // На следующей странице добавляем фрагмент изображения
-    //   pdf.addImage(
-    //     imgData,
-    //     'png',
-    //     xOffset,
-    //     0, // Начало нового изображения на следующей странице
-    //     imageWidth,
-    //     imageHeight,
-    //   );
-    // }
+      const pdf = new jsPDF('p', 'pt', [pdfWidth, pdfHeight]);
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save('report.pdf');
+    } catch (error) {
+      console.error('PDF Error:', error);
+      message.error('Ошибка при создании PDF');
+    }
 
-    // Сохраняем PDF
-    pdf.save('report.pdf');
+    setLoading(false);
   };
 
   return (
-    <button
-      onClick={downloadPDF}
-      className="mt-6 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition"
-    >
-      Скачать PDF
-    </button>
-  );
-};
+    <>
+      <Button
+        id="download-btn"
+        className=""
+        type="primary"
+        loading={loading}
+        onClick={handleDownload}
+      >
+        Скачать отчет в PDF
+      </Button>
 
+      <style>{`
+        .exclude-from-pdf {
+          visibility: hidden !important;
+        }
+      `}</style>
+    </>
+  );
+}
 export default SaveReportAsPDF;

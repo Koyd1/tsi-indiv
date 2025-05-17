@@ -1,3 +1,4 @@
+'use client';
 import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
 import { Typography } from 'antd';
@@ -8,6 +9,7 @@ import {
   ResultsTable,
   YesNoPieChart,
   YesEvaluationPieChart,
+  Header,
 } from '@/components';
 
 const EvaluationOptions = [
@@ -95,7 +97,7 @@ export default function ResultReport() {
   return (
     <div
       id="report"
-      className="max-w-6xl mx-auto p-6"
+      className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10"
       style={{
         '--background': '#ffffff',
         '--foreground': '#000000',
@@ -107,9 +109,12 @@ export default function ResultReport() {
         '--input': '#dddddd',
       }}
     >
-      <div className="flex items-center justify-between mb-4 pt-40">
+      <div className="w-full">
+        <Header />
+      </div>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 pt-40">
         <Title level={1}>Отчёт по результатам опроса</Title>
-        <div className="text-lg font-semibold text-gray-700">
+        <div className="text-base text-gray-700 sm:text-lg font-semibold mt-2 sm:mt-0">
           {new Date().toLocaleDateString('ru-RU', {
             year: 'numeric',
             month: '2-digit',
@@ -117,23 +122,36 @@ export default function ResultReport() {
           })}
         </div>
       </div>
-      <p className="mb-4 text-lg">
+
+      <p className="mb-4 text-base sm:text-lg">
         Компания: <strong>{companyName}</strong>
       </p>
 
-      <div className="flex flex-wrap justify-center gap-8 mb-8">
-        <YesNoPieChart data={pieData} />
-        <YesEvaluationPieChart responses={yesEvaluations} />
+      <div className="flex flex-col lg:flex-row justify-center gap-8 mb-8">
+        <div className="w-full lg:w-1/2">
+          <YesNoPieChart data={pieData} />
+        </div>
+        <div className="w-full lg:w-1/2">
+          <YesEvaluationPieChart responses={yesEvaluations} />
+        </div>
       </div>
 
-      <div className="gap-8">
-        <CategoryBarChart data={barData} />
-        <EvaluationStackedChart data={stackedData} />
+      <div className="space-y-10">
+        <div className="w-full">
+          <CategoryBarChart data={barData} />
+        </div>
+        <div className="w-full">
+          <EvaluationStackedChart data={stackedData} />
+        </div>
       </div>
 
-      <ResultsTable data={perCategoryStats} />
+      <div className="mt-10">
+        <ResultsTable data={perCategoryStats} />
+      </div>
 
-      <SaveReportAsPDF />
+      <div className="mt-8 flex justify-center">
+        <SaveReportAsPDF />
+      </div>
     </div>
   );
 }
