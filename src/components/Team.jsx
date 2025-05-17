@@ -17,7 +17,7 @@ export default function Team() {
     },
     {
       name: 'Андрей Корнев',
-      role: 'Андрей',
+      role: 'Друг главного',
       image: '/team/andrei.jpg',
     },
   ];
