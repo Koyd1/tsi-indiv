@@ -2,22 +2,22 @@ export default function Team() {
   const team = [
     {
       name: 'Александр Мороз',
-      role: 'Вымогатель',
+      role: 'Главный',
       image: '/team/sasha.jpg',
     },
     {
       name: 'Майя Кузьмицкая',
-      role: 'Червь',
+      role: 'Девушка главного',
       image: '/team/maia.jpg',
     },
     {
       name: 'Римма Михова',
-      role: 'Троян',
+      role: 'Подруга главного',
       image: '/team/rima.jpg',
     },
     {
       name: 'Андрей Корнев',
-      role: 'Фишинг',
+      role: 'Андрей',
       image: '/team/andrei.jpg',
     },
   ];
