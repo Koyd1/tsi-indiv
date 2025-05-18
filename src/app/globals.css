@@ -58,8 +58,8 @@ body {
 .ant-tabs-nav-wrap {
   overflow: visible !important;
   display: inline-block; /* чтобы не растягивался на всю ширину */
-  overflow-x: hidden !important;
-  overflow-y: hidden !important;
+  /*overflow-x: hidden !important;*/
+  /*overflow-y: hidden !important;*/
 }
 
 .ant-tabs-nav-list {
