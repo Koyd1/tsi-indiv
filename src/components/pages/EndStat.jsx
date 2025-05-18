@@ -2,7 +2,8 @@
 import '@ant-design/v5-patch-for-react-19';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Card, Statistic } from 'antd';
+import { Button, Card, QRCode, Spin, Statistic } from 'antd';
+import { Footer, QRCode_V } from '@/components';
 
 export default function EndStat() {
   const router = useRouter();
@@ -72,16 +73,9 @@ export default function EndStat() {
         >
           Аналитика и отчёт
         </Button>
-        <Button
-          type="default"
-          size="large"
-          onClick={() => {
-            router.push('/end-stat/report');
-          }}
-        >
-          Скачать отчёт
-        </Button>
       </div>
+      <QRCode_V />
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Footer, Header, QRCode_V } from '@/components';
+import { Footer, Header, QRCode_V, UpAndDownButton } from '@/components';
 import { SurveyHeader, QuestionCard, NavigationButtons } from '@/components';
 
 const EvaluationOptions = [
@@ -28,7 +28,6 @@ export default function Survey() {
       ? 0
       : Math.round((categoryIndex / totalCategories) * 100);
 
-  // Загрузка данных и ответов из localStorage
   useEffect(() => {
     const fetchSurveyData = async () => {
       try {
@@ -41,7 +40,6 @@ export default function Survey() {
           if (savedAnswers) {
             setAnswers(savedAnswers);
           } else {
-            // Инициализация пустых ответов
             const initialAnswers = survey.reduce((acc, category) => {
               acc[category.category] = category.questions.reduce((qAcc, q) => {
                 qAcc[q.id] = { answer: 'no', evaluation: '' };
@@ -59,21 +57,29 @@ export default function Survey() {
     fetchSurveyData();
   }, []);
 
-  // Сохраняем ответы в localStorage при их изменении
   useEffect(() => {
     if (typeof window !== 'undefined' && Object.keys(answers).length > 0) {
       localStorage.setItem('answers', JSON.stringify(answers));
     }
   }, [answers]);
 
-  // Горячие клавиши для оценки выбранного вопроса
   useEffect(() => {
     const handleKeyDown = (e) => {
       const key = e.key.toLowerCase();
+      const currentCategoryObj = data[categoryIndex];
+      const currentCategoryName = currentCategoryObj?.category;
+      const currentAnswers = answers[currentCategoryName] || {};
+      const questions = currentCategoryObj?.questions || [];
+
+      const isLastCategory = categoryIndex === data.length - 1;
+      const isComplete = questions.every((q) => {
+        const a = currentAnswers[q.id];
+        return a?.answer === 'no' || (a?.answer === 'yes' && a?.evaluation);
+      });
+
       if (['1', '2', '3', '4'].includes(key)) {
         if (!selectedQuestionId) return;
-        const selectedIndex = parseInt(key, 10) - 1;
-        const selectedValue = EvaluationOptions[selectedIndex];
+        const selectedValue = EvaluationOptions[parseInt(key, 10) - 1];
         const currentResponse = currentAnswers[selectedQuestionId];
         if (currentResponse?.answer === 'yes') {
           const updated = {
@@ -85,17 +91,34 @@ export default function Survey() {
           };
           setAnswers((prev) => ({
             ...prev,
-            [currentCategory.category]: updated,
+            [currentCategoryName]: updated,
           }));
+        }
+      }
+
+      if (e.key === 'ArrowRight') {
+        if (isComplete) {
+          if (!isLastCategory) {
+            setCategoryIndex((prev) => prev + 1);
+            setSelectedQuestionId(null);
+            window.scrollTo(0, 0);
+          } else {
+            router.push('/end-stat');
+          }
+        }
+      } else if (e.key === 'ArrowLeft') {
+        if (categoryIndex > 0) {
+          setCategoryIndex((prev) => prev - 1);
+          setSelectedQuestionId(null);
+          window.scrollTo(0, 0);
         }
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentAnswers, currentCategory.category, selectedQuestionId]);
+  }, [categoryIndex, data.length, selectedQuestionId, answers]);
 
-  // Обработка ответа на вопрос
   const handleAnswer = (questionId, value) => {
     const updated = {
       ...currentAnswers,
@@ -111,7 +134,6 @@ export default function Survey() {
     }));
   };
 
-  // Обработка оценки (evaluation)
   const handleEvaluation = (questionId, value) => {
     const updated = {
       ...currentAnswers,
@@ -123,7 +145,6 @@ export default function Survey() {
     }));
   };
 
-  // Проверка, что категория заполнена корректно
   const isCategoryComplete = () => {
     const questions = currentCategory.questions || [];
     return questions.every((q) => {
@@ -134,16 +155,21 @@ export default function Survey() {
   };
 
   const nextCategory = () => {
-    if (!isLast) {
+    if (!isLast && isCategoryComplete()) {
       setCategoryIndex((prev) => prev + 1);
+      setSelectedQuestionId(null);
       window.scrollTo(0, 0);
-    } else {
+    } else if (isLast && isCategoryComplete()) {
       router.push('/end-stat');
     }
   };
 
   const prevCategory = () => {
-    if (categoryIndex > 0) setCategoryIndex((prev) => prev - 1);
+    if (categoryIndex > 0) {
+      setCategoryIndex((prev) => prev - 1);
+      setSelectedQuestionId(null);
+      window.scrollTo(0, 0);
+    }
   };
 
   return (
@@ -173,6 +199,7 @@ export default function Survey() {
       />
       <QRCode_V />
       <Footer />
+      <UpAndDownButton />
     </div>
   );
 }

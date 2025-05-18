@@ -1,5 +1,10 @@
 'use client';
-import { Header, Footer, CompanyInputForm } from '@/components';
+import {
+  Header,
+  Footer,
+  CompanyInputForm,
+  UpAndDownButton,
+} from '@/components';
 import '../../app/globals.css';
 export default function Start() {
   return (

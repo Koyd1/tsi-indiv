@@ -9,7 +9,7 @@ import {
   LeftOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-import { Header, Footer } from '@/components';
+import { Header, Footer, UpAndDownButton } from '@/components';
 
 const { Text } = Typography;
 
@@ -238,6 +238,7 @@ export default function DetailedResults() {
 
       {/* Футер страницы */}
       <Footer />
+      <UpAndDownButton />
     </div>
   );
 }
