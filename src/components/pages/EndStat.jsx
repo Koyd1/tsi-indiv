@@ -71,7 +71,7 @@ export default function EndStat() {
           size="large"
           onClick={() => router.push('/end-stat/results-report')}
         >
-          Аналитика и отчёт
+          Аналитика и скачивание отчёта
         </Button>
       </div>
       <QRCode_V />
